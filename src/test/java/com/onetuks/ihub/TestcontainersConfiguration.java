@@ -1,4 +1,4 @@
-package com.onetuks.iflow;
+package com.onetuks.ihub;
 
 import org.springframework.boot.test.context.TestConfiguration;
 

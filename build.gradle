@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.onetuks'
 version = '0.0.1-SNAPSHOT'
-description = 'iflow'
+description = 'i-hub'
 
 java {
     toolchain {
