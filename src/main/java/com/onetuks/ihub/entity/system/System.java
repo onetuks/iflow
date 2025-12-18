@@ -1,7 +1,7 @@
 package com.onetuks.ihub.entity.system;
 
-import com.onetuks.ihub.entity.user.User;
 import com.onetuks.ihub.entity.project.Project;
+import com.onetuks.ihub.entity.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -56,7 +56,7 @@ public class System {
   @JoinColumn(name = "updated_by", referencedColumnName = "user_id", nullable = false)
   private User updatedBy;
 
-  @Column(name = "created_by")
+  @Column(name = "created_at")
   private LocalDateTime createdAt;
 
   @Column(name = "updated_at")
