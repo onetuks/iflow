@@ -1,5 +1,6 @@
 package com.onetuks.ihub.entity;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "connections")
@@ -54,7 +56,8 @@ public class Connection {
   @Column(name = "auth_type")
   private String authType;
 
-  @Column(name = "extra_config")
+  @Type(value = JsonType.class)
+  @Column(name = "extra_config", columnDefinition = "json")
   private String extraConfig;
 
   @Enumerated(value = EnumType.STRING)
