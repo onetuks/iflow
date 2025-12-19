@@ -1,4 +1,4 @@
-package com.onetuks.ihub.service;
+package com.onetuks.ihub.service.user;
 
 import com.onetuks.ihub.dto.user.UserCreateRequest;
 import com.onetuks.ihub.dto.user.UserResponse;

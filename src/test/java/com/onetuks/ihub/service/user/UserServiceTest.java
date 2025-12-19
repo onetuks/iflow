@@ -11,7 +11,6 @@ import com.onetuks.ihub.dto.user.UserUpdateRequest;
 import com.onetuks.ihub.entity.user.UserRole;
 import com.onetuks.ihub.entity.user.UserStatus;
 import com.onetuks.ihub.repository.UserJpaRepository;
-import com.onetuks.ihub.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;

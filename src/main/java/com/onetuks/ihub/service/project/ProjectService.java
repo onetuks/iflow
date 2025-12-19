@@ -1,4 +1,4 @@
-package com.onetuks.ihub.service;
+package com.onetuks.ihub.service.project;
 
 import com.onetuks.ihub.dto.project.ProjectCreateRequest;
 import com.onetuks.ihub.dto.project.ProjectResponse;

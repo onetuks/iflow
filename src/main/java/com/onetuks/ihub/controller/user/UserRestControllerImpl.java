@@ -3,7 +3,7 @@ package com.onetuks.ihub.controller.user;
 import com.onetuks.ihub.dto.user.UserCreateRequest;
 import com.onetuks.ihub.dto.user.UserResponse;
 import com.onetuks.ihub.dto.user.UserUpdateRequest;
-import com.onetuks.ihub.service.UserService;
+import com.onetuks.ihub.service.user.UserService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class UserControllerImpl implements UserController {
+public class UserRestControllerImpl implements UserRestController {
 
   private final UserService userService;
 

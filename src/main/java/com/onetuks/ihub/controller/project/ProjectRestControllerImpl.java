@@ -3,7 +3,7 @@ package com.onetuks.ihub.controller.project;
 import com.onetuks.ihub.dto.project.ProjectCreateRequest;
 import com.onetuks.ihub.dto.project.ProjectResponse;
 import com.onetuks.ihub.dto.project.ProjectUpdateRequest;
-import com.onetuks.ihub.service.ProjectService;
+import com.onetuks.ihub.service.project.ProjectService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class ProjectControllerImpl implements ProjectController {
+public class ProjectRestControllerImpl implements ProjectRestController {
 
   private final ProjectService projectService;
 
