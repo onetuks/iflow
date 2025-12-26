@@ -61,7 +61,7 @@ class AttachmentServiceTest {
     user = ServiceTestDataFactory.createUser(userJpaRepository, "attach@user.com", "AttachUser");
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "AttachProj");
     FileResponse file = FileMapper.toResponse(fileService.create(new FileCreateRequest(
-        project.getProjectId(), null, FileStatus.ACTIVE, "orig", "stored", 10L, "text", user.getUserId())));
+        project.getProjectId(), null, FileStatus.ACTIVE, "orig", "stored", 10L, "text", user.getEmail())));
     fileId = file.fileId();
   }
 
@@ -80,7 +80,7 @@ class AttachmentServiceTest {
         fileId,
         TargetType.POST,
         "1L",
-        user.getUserId());
+        user.getEmail());
 
     AttachmentResponse response = AttachmentMapper.toResponse(attachmentService.create(request));
 
@@ -93,15 +93,15 @@ class AttachmentServiceTest {
   void updateAttachment_success() {
     AttachmentResponse created = AttachmentMapper.toResponse(attachmentService.create(
         new AttachmentCreateRequest(
-            project.getProjectId(), fileId, TargetType.POST, "1L", user.getUserId())));
+            project.getProjectId(), fileId, TargetType.POST, "1L", user.getEmail())));
     FileResponse newFile = FileMapper.toResponse(fileService.create(new FileCreateRequest(
-        project.getProjectId(), null, FileStatus.ACTIVE, "orig2", "stored2", 20L, "text", user.getUserId())));
+        project.getProjectId(), null, FileStatus.ACTIVE, "orig2", "stored2", 20L, "text", user.getEmail())));
 
     AttachmentUpdateRequest updateRequest = new AttachmentUpdateRequest(
         newFile.fileId(),
         TargetType.TASK,
         "2L",
-        user.getUserId());
+        user.getEmail());
 
     AttachmentResponse updated =
         AttachmentMapper.toResponse(attachmentService.update(created.attachmentId(), updateRequest));
@@ -114,9 +114,9 @@ class AttachmentServiceTest {
   @Test
   void getAttachments_returnsAll() {
     attachmentService.create(new AttachmentCreateRequest(
-        project.getProjectId(), fileId, TargetType.POST, "1L", user.getUserId()));
+        project.getProjectId(), fileId, TargetType.POST, "1L", user.getEmail()));
     attachmentService.create(new AttachmentCreateRequest(
-        project.getProjectId(), fileId, TargetType.TASK, "2L", user.getUserId()));
+        project.getProjectId(), fileId, TargetType.TASK, "2L", user.getEmail()));
 
     assertEquals(2, attachmentService.getAll().size());
   }
@@ -125,7 +125,7 @@ class AttachmentServiceTest {
   void deleteAttachment_success() {
     AttachmentResponse created = AttachmentMapper.toResponse(attachmentService.create(
         new AttachmentCreateRequest(
-            project.getProjectId(), fileId, TargetType.POST, "1L", user.getUserId())));
+            project.getProjectId(), fileId, TargetType.POST, "1L", user.getEmail())));
 
     attachmentService.delete(created.attachmentId());
 

@@ -61,7 +61,7 @@ class PostServiceTest {
         project.getProjectId(),
         "Title",
         "Content",
-        author.getUserId());
+        author.getEmail());
 
     PostResponse response = PostMapper.toResponse(postService.create(request));
 
@@ -73,7 +73,7 @@ class PostServiceTest {
   @Test
   void updatePost_success() {
     PostResponse created = PostMapper.toResponse(postService.create(new PostCreateRequest(
-        project.getProjectId(), "Old", "Old content", author.getUserId())));
+        project.getProjectId(), "Old", "Old content", author.getEmail())));
 
     PostUpdateRequest updateRequest = new PostUpdateRequest("New", "New content");
 
@@ -86,9 +86,9 @@ class PostServiceTest {
   @Test
   void getPosts_returnsAll() {
     postService.create(new PostCreateRequest(
-        project.getProjectId(), "P1", "C1", author.getUserId()));
+        project.getProjectId(), "P1", "C1", author.getEmail()));
     postService.create(new PostCreateRequest(
-        project.getProjectId(), "P2", "C2", author.getUserId()));
+        project.getProjectId(), "P2", "C2", author.getEmail()));
 
     assertEquals(2, postService.getAll().size());
   }
@@ -96,7 +96,7 @@ class PostServiceTest {
   @Test
   void deletePost_success() {
     PostResponse created = PostMapper.toResponse(postService.create(new PostCreateRequest(
-        project.getProjectId(), "P3", "C3", author.getUserId())));
+        project.getProjectId(), "P3", "C3", author.getEmail())));
 
     postService.delete(created.postId());
 

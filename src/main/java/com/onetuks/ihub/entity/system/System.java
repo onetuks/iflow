@@ -13,14 +13,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = System.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class System {
 
   public static final String TABLE_NAME = "systems";
@@ -52,11 +50,11 @@ public class System {
   private SystemEnvironment environment;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "created_by", referencedColumnName = "email", nullable = false)
   private User createdBy;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "updated_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "updated_by", referencedColumnName = "email", nullable = false)
   private User updatedBy;
 
   @Column(name = "created_at")

@@ -27,7 +27,7 @@ public final class InterfaceMapper {
         anInterface.getStatus() != null ? anInterface.getStatus().getStatusId() : null,
         anInterface.getBatchTimeLabel(),
         anInterface.getRemark(),
-        anInterface.getCreatedBy() != null ? anInterface.getCreatedBy().getUserId() : null,
+        anInterface.getCreatedBy() != null ? anInterface.getCreatedBy().getEmail() : null,
         anInterface.getCreatedAt(),
         anInterface.getUpdatedAt());
   }

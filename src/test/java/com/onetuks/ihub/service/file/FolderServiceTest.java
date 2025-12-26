@@ -62,7 +62,7 @@ class FolderServiceTest {
         project.getProjectId(),
         null,
         "Root",
-        creator.getUserId());
+        creator.getEmail());
 
     FolderResponse response = FolderMapper.toResponse(folderService.create(request));
 
@@ -74,7 +74,7 @@ class FolderServiceTest {
   @Test
   void updateFolder_success() {
     FolderResponse created = FolderMapper.toResponse(folderService.create(new FolderCreateRequest(
-        project.getProjectId(), null, "Parent", creator.getUserId())));
+        project.getProjectId(), null, "Parent", creator.getEmail())));
     FolderUpdateRequest updateRequest = new FolderUpdateRequest(null, "ParentRenamed");
 
     FolderResponse updated = FolderMapper.toResponse(folderService.update(created.folderId(), updateRequest));
@@ -85,9 +85,9 @@ class FolderServiceTest {
   @Test
   void getFolders_returnsAll() {
     folderService.create(new FolderCreateRequest(
-        project.getProjectId(), null, "F1", creator.getUserId()));
+        project.getProjectId(), null, "F1", creator.getEmail()));
     folderService.create(new FolderCreateRequest(
-        project.getProjectId(), null, "F2", creator.getUserId()));
+        project.getProjectId(), null, "F2", creator.getEmail()));
 
     assertEquals(2, folderService.getAll().size());
   }
@@ -95,7 +95,7 @@ class FolderServiceTest {
   @Test
   void deleteFolder_success() {
     FolderResponse created = FolderMapper.toResponse(folderService.create(new FolderCreateRequest(
-        project.getProjectId(), null, "Del", creator.getUserId())));
+        project.getProjectId(), null, "Del", creator.getEmail())));
 
     folderService.delete(created.folderId());
 

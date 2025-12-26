@@ -11,14 +11,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = Event.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Event {
 
   public static final String TABLE_NAME = "events";
@@ -50,7 +48,7 @@ public class Event {
   private Integer remindBeforeMinutes;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+  @JoinColumn(name = "created_by", referencedColumnName = "email")
   private User createdBy;
 
   @Column(name = "created_at")

@@ -1,7 +1,7 @@
 package com.onetuks.ihub.dto.connection;
 
-import com.onetuks.ihub.entity.connection.ConnectionStatus;
-import com.onetuks.ihub.entity.connection.Protocol;
+import com.onetuks.ihub.entity.system.ConnectionStatus;
+import com.onetuks.ihub.entity.system.Protocol;
 import jakarta.validation.constraints.NotNull;
 
 public record ConnectionCreateRequest(

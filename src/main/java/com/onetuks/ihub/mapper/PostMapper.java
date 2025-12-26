@@ -17,7 +17,7 @@ public final class PostMapper {
         post.getProject() != null ? post.getProject().getProjectId() : null,
         post.getTitle(),
         post.getContent(),
-        post.getCreatedBy() != null ? post.getCreatedBy().getUserId() : null,
+        post.getCreatedBy() != null ? post.getCreatedBy().getEmail() : null,
         post.getCreatedAt(),
         post.getUpdatedAt());
   }

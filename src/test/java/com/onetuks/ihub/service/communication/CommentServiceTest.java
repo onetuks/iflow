@@ -64,7 +64,7 @@ class CommentServiceTest {
         TargetType.POST,
         "1L",
         "Hello",
-        author.getUserId());
+        author.getEmail());
 
     CommentResponse response = CommentMapper.toResponse(commentService.create(request));
 
@@ -76,7 +76,7 @@ class CommentServiceTest {
   @Test
   void updateComment_success() {
     CommentResponse created = CommentMapper.toResponse(commentService.create(new CommentCreateRequest(
-        project.getProjectId(), null, TargetType.POST, "1L", "Old", author.getUserId())));
+        project.getProjectId(), null, TargetType.POST, "1L", "Old", author.getEmail())));
 
     CommentUpdateRequest updateRequest =
         new CommentUpdateRequest(TargetType.TASK, "2L", "Updated");
@@ -91,9 +91,9 @@ class CommentServiceTest {
   @Test
   void getComments_returnsAll() {
     commentService.create(new CommentCreateRequest(
-        project.getProjectId(), null, TargetType.POST, "1L", "A", author.getUserId()));
+        project.getProjectId(), null, TargetType.POST, "1L", "A", author.getEmail()));
     commentService.create(new CommentCreateRequest(
-        project.getProjectId(), null, TargetType.POST, "1L", "B", author.getUserId()));
+        project.getProjectId(), null, TargetType.POST, "1L", "B", author.getEmail()));
 
     assertEquals(2, commentService.getAll().size());
   }
@@ -101,7 +101,7 @@ class CommentServiceTest {
   @Test
   void deleteComment_success() {
     CommentResponse created = CommentMapper.toResponse(commentService.create(new CommentCreateRequest(
-        project.getProjectId(), null, TargetType.POST, "1L", "C", author.getUserId())));
+        project.getProjectId(), null, TargetType.POST, "1L", "C", author.getEmail())));
 
     commentService.delete(created.commentId());
 

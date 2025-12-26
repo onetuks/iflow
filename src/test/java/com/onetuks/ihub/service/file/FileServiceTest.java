@@ -60,7 +60,7 @@ class FileServiceTest {
     uploader = ServiceTestDataFactory.createUser(userJpaRepository, "file@user.com", "FileUser");
     project = ServiceTestDataFactory.createProject(projectJpaRepository, uploader, uploader, "FileProj");
     FolderResponse folderResponse = FolderMapper.toResponse(folderService.create(new FolderCreateRequest(
-        project.getProjectId(), null, "Docs", uploader.getUserId())));
+        project.getProjectId(), null, "Docs", uploader.getEmail())));
     folderId = folderResponse.folderId();
   }
 
@@ -82,7 +82,7 @@ class FileServiceTest {
         "stored.txt",
         123L,
         "text/plain",
-        uploader.getUserId());
+        uploader.getEmail());
 
     FileResponse response = FileMapper.toResponse(fileService.create(request));
 
@@ -101,7 +101,7 @@ class FileServiceTest {
         "stored2.txt",
         200L,
         "text/plain",
-        uploader.getUserId())));
+        uploader.getEmail())));
 
     FileUpdateRequest updateRequest = new FileUpdateRequest(
         null,
@@ -110,7 +110,7 @@ class FileServiceTest {
         "stored2_new.txt",
         250L,
         "text/markdown",
-        uploader.getUserId(),
+        uploader.getEmail(),
         LocalDateTime.now());
 
     FileResponse updated = FileMapper.toResponse(fileService.update(created.fileId(), updateRequest));
@@ -123,9 +123,9 @@ class FileServiceTest {
   @Test
   void getFiles_returnsAll() {
     fileService.create(new FileCreateRequest(
-        project.getProjectId(), null, FileStatus.ACTIVE, "a", "a", 1L, "text", uploader.getUserId()));
+        project.getProjectId(), null, FileStatus.ACTIVE, "a", "a", 1L, "text", uploader.getEmail()));
     fileService.create(new FileCreateRequest(
-        project.getProjectId(), null, FileStatus.ACTIVE, "b", "b", 1L, "text", uploader.getUserId()));
+        project.getProjectId(), null, FileStatus.ACTIVE, "b", "b", 1L, "text", uploader.getEmail()));
 
     assertEquals(2, fileService.getAll().size());
   }
@@ -133,7 +133,7 @@ class FileServiceTest {
   @Test
   void deleteFile_success() {
     FileResponse created = FileMapper.toResponse(fileService.create(new FileCreateRequest(
-        project.getProjectId(), null, FileStatus.ACTIVE, "c", "c", 1L, "text", uploader.getUserId())));
+        project.getProjectId(), null, FileStatus.ACTIVE, "c", "c", 1L, "text", uploader.getEmail())));
 
     fileService.delete(created.fileId());
 

@@ -23,7 +23,7 @@ public class UserRestControllerImpl implements UserRestController {
   @Override
   public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest request) {
     UserResponse response = UserMapper.toResponse(userService.create(request));
-    return ResponseEntity.created(URI.create("/api/users/" + response.userId())).body(response);
+    return ResponseEntity.created(URI.create("/api/users/" + response.email())).body(response);
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.onetuks.ihub.entity.connection;
+package com.onetuks.ihub.entity.system;
 
 public enum ConnectionStatus {
   ACTIVE,

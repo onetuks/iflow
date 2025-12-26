@@ -15,14 +15,12 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = Task.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Task {
 
   public static final String TABLE_NAME = "tasks";
@@ -58,11 +56,11 @@ public class Task {
   private TaskStatus status;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "assignee_id", referencedColumnName = "user_id")
+  @JoinColumn(name = "assignee_id", referencedColumnName = "email")
   private User assignee;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "requester_id", referencedColumnName = "user_id")
+  @JoinColumn(name = "requester_id", referencedColumnName = "email")
   private User requester;
 
   @Column(name = "start_date")
@@ -79,7 +77,7 @@ public class Task {
   private Integer progress;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+  @JoinColumn(name = "created_by", referencedColumnName = "email")
   private User createdBy;
 
   @Column(name = "created_at")

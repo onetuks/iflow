@@ -62,7 +62,7 @@ class EventAttendeeServiceTest {
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, creator, "EventAttendeeProj");
     eventId = EventMapper.toResponse(eventService.create(new EventCreateRequest(
         project.getProjectId(), "Session", LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-        "Room", "desc", 5, creator.getUserId()))).eventId();
+        "Room", "desc", 5, creator.getEmail()))).eventId();
   }
 
   @AfterEach
@@ -77,7 +77,7 @@ class EventAttendeeServiceTest {
   void createEventAttendee_success() {
     EventAttendeeCreateRequest request = new EventAttendeeCreateRequest(
         eventId,
-        attendeeUser.getUserId(),
+        attendeeUser.getEmail(),
         true,
         EventAttendeeStatus.ACCEPTED);
 
@@ -85,7 +85,7 @@ class EventAttendeeServiceTest {
         EventAttendeeMapper.toResponse(eventAttendeeService.create(request));
 
     assertNotNull(response.eventAttendeeId());
-    assertEquals(attendeeUser.getUserId(), response.userId());
+    assertEquals(attendeeUser.getEmail(), response.userId());
     assertEquals(EventAttendeeStatus.ACCEPTED, response.attendStatus());
   }
 
@@ -93,7 +93,7 @@ class EventAttendeeServiceTest {
   void updateEventAttendee_success() {
     EventAttendeeResponse created = EventAttendeeMapper.toResponse(
         eventAttendeeService.create(new EventAttendeeCreateRequest(
-            eventId, attendeeUser.getUserId(), false, EventAttendeeStatus.INVITED)));
+            eventId, attendeeUser.getEmail(), false, EventAttendeeStatus.INVITED)));
 
     EventAttendeeUpdateRequest updateRequest = new EventAttendeeUpdateRequest(
         true, EventAttendeeStatus.ACCEPTED);
@@ -108,9 +108,9 @@ class EventAttendeeServiceTest {
   @Test
   void getEventAttendees_returnsAll() {
     eventAttendeeService.create(new EventAttendeeCreateRequest(
-        eventId, attendeeUser.getUserId(), false, EventAttendeeStatus.INVITED));
+        eventId, attendeeUser.getEmail(), false, EventAttendeeStatus.INVITED));
     eventAttendeeService.create(new EventAttendeeCreateRequest(
-        eventId, creator.getUserId(), true, EventAttendeeStatus.ACCEPTED));
+        eventId, creator.getEmail(), true, EventAttendeeStatus.ACCEPTED));
 
     assertEquals(2, eventAttendeeService.getAll().size());
   }
@@ -119,7 +119,7 @@ class EventAttendeeServiceTest {
   void deleteEventAttendee_success() {
     EventAttendeeResponse created = EventAttendeeMapper.toResponse(
         eventAttendeeService.create(new EventAttendeeCreateRequest(
-            eventId, attendeeUser.getUserId(), false, EventAttendeeStatus.INVITED)));
+            eventId, attendeeUser.getEmail(), false, EventAttendeeStatus.INVITED)));
 
     eventAttendeeService.delete(created.eventAttendeeId());
 

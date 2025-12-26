@@ -98,7 +98,7 @@ class InterfaceServiceTest {
         status.getStatusId(),
         "batch",
         "remark",
-        user.getUserId());
+        user.getEmail());
 
     InterfaceResponse response = InterfaceMapper.toResponse(interfaceService.create(request));
 
@@ -115,7 +115,7 @@ class InterfaceServiceTest {
             "Module", InterfaceType.REALTIME, "pattern",
             com.onetuks.ihub.entity.interfaces.ChannelAdapter.HTTP,
             com.onetuks.ihub.entity.interfaces.ChannelAdapter.REST,
-            SyncAsyncType.SYNC, status.getStatusId(), "batch", "remark", user.getUserId())));
+            SyncAsyncType.SYNC, status.getStatusId(), "batch", "remark", user.getEmail())));
 
     InterfaceUpdateRequest updateRequest = new InterfaceUpdateRequest(
         "IF-2-NEW",
@@ -146,13 +146,13 @@ class InterfaceServiceTest {
         "M", InterfaceType.REALTIME, "p",
         ChannelAdapter.HTTP,
         ChannelAdapter.HTTP,
-        SyncAsyncType.SYNC, status.getStatusId(), "b", "r", user.getUserId()));
+        SyncAsyncType.SYNC, status.getStatusId(), "b", "r", user.getEmail()));
     Interface anInterface1 = interfaceService.create(new InterfaceCreateRequest(
         project.getProjectId(), "IF-4", sourceSystem.getSystemId(), targetSystem.getSystemId(),
         "M", InterfaceType.REALTIME, "p",
         ChannelAdapter.HTTP,
         ChannelAdapter.HTTP,
-        SyncAsyncType.SYNC, status.getStatusId(), "b", "r", user.getUserId()));
+        SyncAsyncType.SYNC, status.getStatusId(), "b", "r", user.getEmail()));
 
     assertEquals(2, interfaceService.getAll().size());
   }
@@ -165,7 +165,7 @@ class InterfaceServiceTest {
             "M", InterfaceType.REALTIME, "p",
             com.onetuks.ihub.entity.interfaces.ChannelAdapter.HTTP,
             com.onetuks.ihub.entity.interfaces.ChannelAdapter.HTTP,
-            SyncAsyncType.SYNC, status.getStatusId(), "b", "r", user.getUserId())));
+            SyncAsyncType.SYNC, status.getStatusId(), "b", "r", user.getEmail())));
 
     interfaceService.delete(created.interfaceId());
 

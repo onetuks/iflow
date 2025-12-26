@@ -14,14 +14,12 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = TaskFilterGroup.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class TaskFilterGroup {
 
   public static final String TABLE_NAME = "task_filter_groups";
@@ -31,7 +29,7 @@ public class TaskFilterGroup {
   private String groupId;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
   private User user;
 
   @Column(name = "name", nullable = false)

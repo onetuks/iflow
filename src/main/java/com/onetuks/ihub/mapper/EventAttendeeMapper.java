@@ -14,7 +14,7 @@ public final class EventAttendeeMapper {
     return new EventAttendeeResponse(
         eventAttendee.getEventAttendeeId(),
         eventAttendee.getEvent() != null ? eventAttendee.getEvent().getEventId() : null,
-        eventAttendee.getUser() != null ? eventAttendee.getUser().getUserId() : null,
+        eventAttendee.getUser() != null ? eventAttendee.getUser().getEmail() : null,
         eventAttendee.getIsMandatory(),
         eventAttendee.getAttendStatus());
   }

@@ -13,14 +13,12 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = Project.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Project {
 
   public static final String TABLE_NAME = "projects";
@@ -42,11 +40,11 @@ public class Project {
   private LocalDate endDate;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "created_by", referencedColumnName = "email", nullable = false)
   private User createdBy;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "current_admin_id", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "current_admin_id", referencedColumnName = "email", nullable = false)
   private User currentAdmin;
 
   @Enumerated(value = EnumType.STRING)

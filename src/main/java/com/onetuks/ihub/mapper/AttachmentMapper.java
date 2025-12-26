@@ -18,7 +18,7 @@ public final class AttachmentMapper {
         attachment.getFile() != null ? attachment.getFile().getFileId() : null,
         attachment.getTargetType(),
         attachment.getTargetId(),
-        attachment.getAttachedBy() != null ? attachment.getAttachedBy().getUserId() : null,
+        attachment.getAttachedBy() != null ? attachment.getAttachedBy().getEmail() : null,
         attachment.getAttachedAt());
   }
 

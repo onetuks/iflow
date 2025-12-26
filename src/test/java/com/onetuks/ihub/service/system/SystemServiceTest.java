@@ -69,8 +69,8 @@ class SystemServiceTest {
         "desc",
         SystemType.DB,
         SystemEnvironment.DEV,
-        creator.getUserId(),
-        updater.getUserId());
+        creator.getEmail(),
+        updater.getEmail());
 
     SystemResponse response = SystemMapper.toResponse(systemService.create(request));
 
@@ -90,8 +90,8 @@ class SystemServiceTest {
         "desc",
         SystemType.SAP,
         SystemEnvironment.DEV,
-        creator.getUserId(),
-        updater.getUserId())));
+        creator.getEmail(),
+        updater.getEmail())));
 
     SystemUpdateRequest updateRequest = new SystemUpdateRequest(
         "SYS2-NEW",
@@ -99,7 +99,7 @@ class SystemServiceTest {
         "updated",
         SystemType.SERVER,
         SystemEnvironment.QA,
-        creator.getUserId());
+        creator.getEmail());
 
     SystemResponse updated = SystemMapper.toResponse(systemService.update(created.systemId(), updateRequest));
 
@@ -112,10 +112,10 @@ class SystemServiceTest {
   void getSystems_returnsAll() {
     systemService.create(new SystemCreateRequest(
         project.getProjectId(), "S1", SystemStatus.ACTIVE, null,
-        SystemType.DB, SystemEnvironment.DEV, creator.getUserId(), updater.getUserId()));
+        SystemType.DB, SystemEnvironment.DEV, creator.getEmail(), updater.getEmail()));
     systemService.create(new SystemCreateRequest(
         project.getProjectId(), "S2", SystemStatus.ACTIVE, null,
-        SystemType.DB, SystemEnvironment.DEV, creator.getUserId(), updater.getUserId()));
+        SystemType.DB, SystemEnvironment.DEV, creator.getEmail(), updater.getEmail()));
 
     assertEquals(2, systemService.getAll().size());
   }
@@ -124,7 +124,7 @@ class SystemServiceTest {
   void deleteSystem_success() {
     SystemResponse created = SystemMapper.toResponse(systemService.create(new SystemCreateRequest(
         project.getProjectId(), "S3", SystemStatus.ACTIVE, null,
-        SystemType.DB, SystemEnvironment.DEV, creator.getUserId(), updater.getUserId())));
+        SystemType.DB, SystemEnvironment.DEV, creator.getEmail(), updater.getEmail())));
 
     systemService.delete(created.systemId());
 

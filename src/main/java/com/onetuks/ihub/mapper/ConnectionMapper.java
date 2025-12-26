@@ -3,7 +3,7 @@ package com.onetuks.ihub.mapper;
 import com.onetuks.ihub.dto.connection.ConnectionCreateRequest;
 import com.onetuks.ihub.dto.connection.ConnectionResponse;
 import com.onetuks.ihub.dto.connection.ConnectionUpdateRequest;
-import com.onetuks.ihub.entity.connection.Connection;
+import com.onetuks.ihub.entity.system.Connection;
 import java.time.LocalDateTime;
 
 public final class ConnectionMapper {
@@ -26,8 +26,8 @@ public final class ConnectionMapper {
         connection.getExtraConfig(),
         connection.getStatus(),
         connection.getDescription(),
-        connection.getCreatedBy() != null ? connection.getCreatedBy().getUserId() : null,
-        connection.getUpdatedBy() != null ? connection.getUpdatedBy().getUserId() : null,
+        connection.getCreatedBy() != null ? connection.getCreatedBy().getEmail() : null,
+        connection.getUpdatedBy() != null ? connection.getUpdatedBy().getEmail() : null,
         connection.getCreatedAt(),
         connection.getUpdatedAt());
   }

@@ -14,7 +14,7 @@ public final class ProjectMemberMapper {
     return new ProjectMemberResponse(
         projectMember.getProjectMemberId(),
         projectMember.getProject() != null ? projectMember.getProject().getProjectId() : null,
-        projectMember.getUser() != null ? projectMember.getUser().getUserId() : null,
+        projectMember.getUser() != null ? projectMember.getUser().getEmail() : null,
         projectMember.getRole(),
         projectMember.getJoinedAt(),
         projectMember.getLeftAt());

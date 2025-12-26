@@ -17,7 +17,7 @@ public final class InterfaceStatusHistoryMapper {
         history.getAnInterface() != null ? history.getAnInterface().getInterfaceId() : null,
         history.getFromStatus() != null ? history.getFromStatus().getStatusId() : null,
         history.getToStatus() != null ? history.getToStatus().getStatusId() : null,
-        history.getChangedBy() != null ? history.getChangedBy().getUserId() : null,
+        history.getChangedBy() != null ? history.getChangedBy().getEmail() : null,
         history.getChangedAt(),
         history.getRelatedTask() != null ? history.getRelatedTask().getTaskId() : null,
         history.getReason());

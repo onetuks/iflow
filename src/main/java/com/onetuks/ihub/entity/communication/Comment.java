@@ -13,14 +13,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = Comment.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Comment {
 
   public static final String TABLE_NAME = "comments";
@@ -48,7 +46,7 @@ public class Comment {
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+  @JoinColumn(name = "created_by", referencedColumnName = "email")
   private User createdBy;
 
   @Column(name = "created_at")

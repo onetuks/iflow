@@ -69,13 +69,13 @@ class TaskServiceTest {
         "Task 1",
         "desc",
         TaskStatus.REQUEST,
-        user.getUserId(),
-        user.getUserId(),
+        user.getEmail(),
+        user.getEmail(),
         LocalDate.now(),
         LocalDate.now().plusDays(1),
         TaskPriority.HIGH,
         10,
-        user.getUserId());
+        user.getEmail());
 
     TaskResponse response = TaskMapper.toResponse(taskService.create(request));
 
@@ -88,7 +88,7 @@ class TaskServiceTest {
   void updateTask_success() {
     TaskResponse created = TaskMapper.toResponse(taskService.create(new TaskCreateRequest(
         project.getProjectId(), null, TaskType.PARENT, null, "Task 2", null, TaskStatus.REQUEST,
-        user.getUserId(), user.getUserId(), null, null, TaskPriority.MEDIUM, 0, user.getUserId())));
+        user.getEmail(), user.getEmail(), null, null, TaskPriority.MEDIUM, 0, user.getEmail())));
 
     TaskUpdateRequest updateRequest = new TaskUpdateRequest(
         null,
@@ -97,8 +97,8 @@ class TaskServiceTest {
         "Task 2 Updated",
         "new desc",
         TaskStatus.IN_PROGRESS,
-        user.getUserId(),
-        user.getUserId(),
+        user.getEmail(),
+        user.getEmail(),
         LocalDate.now(),
         LocalDate.now().plusDays(2),
         TaskPriority.LOW,

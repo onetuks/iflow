@@ -15,14 +15,12 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = Interface.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Interface {
 
   public static final String TABLE_NAME = "interfaces";
@@ -79,7 +77,7 @@ public class Interface {
   private String remark;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "created_by", referencedColumnName = "email", nullable = false)
   private User createdBy;
 
   @Column(name = "created_at")

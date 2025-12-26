@@ -59,7 +59,7 @@ class TaskFilterGroupStatusServiceTest {
     var project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "GSProj");
     group = TaskFilterGroupMapper.toResponse(taskFilterGroupService.create(
         new TaskFilterGroupCreateRequest(
-            user.getUserId(), project.getProjectId(), "Group", null, null,
+            user.getEmail(), project.getProjectId(), "Group", null, null,
             TaskFilterGroupDateType.CREATED, null, null)));
   }
 

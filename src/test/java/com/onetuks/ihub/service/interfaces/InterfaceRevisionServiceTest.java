@@ -88,7 +88,7 @@ class InterfaceRevisionServiceTest {
         status.getStatusId(),
         "batch",
         "remark",
-        user.getUserId()))).interfaceId();
+        user.getEmail()))).interfaceId();
   }
 
   @AfterEach
@@ -106,7 +106,7 @@ class InterfaceRevisionServiceTest {
     InterfaceRevisionCreateRequest request = new InterfaceRevisionCreateRequest(
         interfaceId,
         1,
-        user.getUserId(),
+        user.getEmail(),
         Map.of("k", "v"),
         "reason");
 
@@ -122,10 +122,10 @@ class InterfaceRevisionServiceTest {
   void updateInterfaceRevision_success() {
     InterfaceRevisionResponse created = InterfaceRevisionMapper.toResponse(
         interfaceRevisionService.create(new InterfaceRevisionCreateRequest(
-            interfaceId, 1, user.getUserId(), Map.of("k", "v"), "reason")));
+            interfaceId, 1, user.getEmail(), Map.of("k", "v"), "reason")));
 
     InterfaceRevisionUpdateRequest updateRequest =
-        new InterfaceRevisionUpdateRequest(2, user.getUserId(), Map.of("k2", "v2"), "new reason");
+        new InterfaceRevisionUpdateRequest(2, user.getEmail(), Map.of("k2", "v2"), "new reason");
 
     InterfaceRevisionResponse updated = InterfaceRevisionMapper.toResponse(
         interfaceRevisionService.update(created.revisionId(), updateRequest));
@@ -137,9 +137,9 @@ class InterfaceRevisionServiceTest {
   @Test
   void getInterfaceRevisions_returnsAll() {
     interfaceRevisionService.create(new InterfaceRevisionCreateRequest(
-        interfaceId, 1, user.getUserId(), Map.of("a", "b"), "r1"));
+        interfaceId, 1, user.getEmail(), Map.of("a", "b"), "r1"));
     interfaceRevisionService.create(new InterfaceRevisionCreateRequest(
-        interfaceId, 2, user.getUserId(), Map.of("c", "d"), "r2"));
+        interfaceId, 2, user.getEmail(), Map.of("c", "d"), "r2"));
 
     assertEquals(2, interfaceRevisionService.getAll().size());
   }
@@ -148,7 +148,7 @@ class InterfaceRevisionServiceTest {
   void deleteInterfaceRevision_success() {
     InterfaceRevisionResponse created = InterfaceRevisionMapper.toResponse(
         interfaceRevisionService.create(new InterfaceRevisionCreateRequest(
-            interfaceId, 1, user.getUserId(), Map.of("a", "b"), "r1")));
+            interfaceId, 1, user.getEmail(), Map.of("a", "b"), "r1")));
 
     interfaceRevisionService.delete(created.revisionId());
 

@@ -5,7 +5,6 @@ import com.onetuks.ihub.entity.project.ProjectStatus;
 import com.onetuks.ihub.entity.system.SystemStatus;
 import com.onetuks.ihub.entity.system.SystemType;
 import com.onetuks.ihub.entity.user.User;
-import com.onetuks.ihub.entity.user.UserRole;
 import com.onetuks.ihub.entity.user.UserStatus;
 import com.onetuks.ihub.entity.interfaces.ChannelAdapter;
 import com.onetuks.ihub.entity.interfaces.InterfaceStatus;
@@ -30,12 +29,10 @@ public final class ServiceTestDataFactory {
 
   public static User createUser(UserJpaRepository userJpaRepository, String email, String name) {
     User user = new User();
-    user.setUserId(UUIDProvider.provideUUID(User.TABLE_NAME));
     user.setEmail(email);
     user.setPassword("pass");
     user.setName(name);
     user.setStatus(UserStatus.ACTIVE);
-    user.setRole(UserRole.EAI);
     user.setCreatedAt(LocalDateTime.now());
     user.setUpdatedAt(LocalDateTime.now());
     return userJpaRepository.save(user);

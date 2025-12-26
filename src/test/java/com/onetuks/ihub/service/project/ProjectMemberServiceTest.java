@@ -61,8 +61,8 @@ class ProjectMemberServiceTest {
   void createProjectMember_success() {
     ProjectMemberCreateRequest request = new ProjectMemberCreateRequest(
         project.getProjectId(),
-        user.getUserId(),
-        ProjectMemberRole.MEMBER,
+        user.getEmail(),
+        ProjectMemberRole.PROJECT_MEMBER,
         LocalDateTime.now(),
         null);
 
@@ -70,32 +70,32 @@ class ProjectMemberServiceTest {
         ProjectMemberMapper.toResponse(projectMemberService.create(request));
 
     assertNotNull(response.projectMemberId());
-    assertEquals(ProjectMemberRole.MEMBER, response.role());
+    assertEquals(ProjectMemberRole.PROJECT_MEMBER, response.role());
   }
 
   @Test
   void updateProjectMember_success() {
     ProjectMemberResponse created = ProjectMemberMapper.toResponse(projectMemberService.create(
         new ProjectMemberCreateRequest(
-            project.getProjectId(), user.getUserId(), ProjectMemberRole.MEMBER,
+            project.getProjectId(), user.getEmail(), ProjectMemberRole.PROJECT_MEMBER,
             LocalDateTime.now(), null)));
 
     ProjectMemberUpdateRequest updateRequest =
-        new ProjectMemberUpdateRequest(ProjectMemberRole.ADMIN, LocalDateTime.now());
+        new ProjectMemberUpdateRequest(ProjectMemberRole.PROJECT_OWNER, LocalDateTime.now());
 
     ProjectMemberResponse updated = ProjectMemberMapper.toResponse(
         projectMemberService.update(created.projectMemberId(), updateRequest));
 
-    assertEquals(ProjectMemberRole.ADMIN, updated.role());
+    assertEquals(ProjectMemberRole.PROJECT_OWNER, updated.role());
     assertNotNull(updated.leftAt());
   }
 
   @Test
   void getProjectMembers_returnsAll() {
     projectMemberService.create(new ProjectMemberCreateRequest(
-        project.getProjectId(), user.getUserId(), ProjectMemberRole.MEMBER, null, null));
+        project.getProjectId(), user.getEmail(), ProjectMemberRole.PROJECT_MEMBER, null, null));
     projectMemberService.create(new ProjectMemberCreateRequest(
-        project.getProjectId(), user.getUserId(), ProjectMemberRole.VIEWER, null, null));
+        project.getProjectId(), user.getEmail(), ProjectMemberRole.PROJECT_VIEWER, null, null));
 
     assertEquals(2, projectMemberService.getAll().size());
   }
@@ -104,7 +104,7 @@ class ProjectMemberServiceTest {
   void deleteProjectMember_success() {
     ProjectMemberResponse created = ProjectMemberMapper.toResponse(projectMemberService.create(
         new ProjectMemberCreateRequest(
-            project.getProjectId(), user.getUserId(), ProjectMemberRole.MEMBER, null, null)));
+            project.getProjectId(), user.getEmail(), ProjectMemberRole.PROJECT_MEMBER, null, null)));
 
     projectMemberService.delete(created.projectMemberId());
 

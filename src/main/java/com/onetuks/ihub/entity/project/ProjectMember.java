@@ -13,15 +13,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = ProjectMember.TABLE_NAME, uniqueConstraints = {
-    @UniqueConstraint(name = "unq_project_user", columnNames = {"project_id", "user_id"})})
+    @UniqueConstraint(name = "unq_project_user", columnNames = {"project_id", "email"})})
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class ProjectMember {
 
   public static final String TABLE_NAME = "project_members";
@@ -35,7 +33,7 @@ public class ProjectMember {
   private Project project;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
   private User user;
 
   @Enumerated(value = EnumType.STRING)

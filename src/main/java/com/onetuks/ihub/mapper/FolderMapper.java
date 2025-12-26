@@ -17,7 +17,7 @@ public final class FolderMapper {
         folder.getProject() != null ? folder.getProject().getProjectId() : null,
         folder.getParentFolder() != null ? folder.getParentFolder().getFolderId() : null,
         folder.getName(),
-        folder.getCreatedBy() != null ? folder.getCreatedBy().getUserId() : null,
+        folder.getCreatedBy() != null ? folder.getCreatedBy().getEmail() : null,
         folder.getCreatedAt(),
         folder.getUpdatedAt());
   }

@@ -60,7 +60,7 @@ class TaskFilterGroupServiceTest {
   @Test
   void createTaskFilterGroup_success() {
     TaskFilterGroupCreateRequest request = new TaskFilterGroupCreateRequest(
-        user.getUserId(),
+        user.getEmail(),
         project.getProjectId(),
         "MyGroup",
         "assignee",
@@ -81,7 +81,7 @@ class TaskFilterGroupServiceTest {
   void updateTaskFilterGroup_success() {
     TaskFilterGroupResponse created = TaskFilterGroupMapper.toResponse(
         taskFilterGroupService.create(new TaskFilterGroupCreateRequest(
-            user.getUserId(), project.getProjectId(), "Group", null, null,
+            user.getEmail(), project.getProjectId(), "Group", null, null,
             TaskFilterGroupDateType.CREATED, null, null)));
 
     TaskFilterGroupUpdateRequest updateRequest = new TaskFilterGroupUpdateRequest(
@@ -103,10 +103,10 @@ class TaskFilterGroupServiceTest {
   @Test
   void getTaskFilterGroups_returnsAll() {
     taskFilterGroupService.create(new TaskFilterGroupCreateRequest(
-        user.getUserId(), project.getProjectId(), "G1", null, null,
+        user.getEmail(), project.getProjectId(), "G1", null, null,
         TaskFilterGroupDateType.CREATED, null, null));
     taskFilterGroupService.create(new TaskFilterGroupCreateRequest(
-        user.getUserId(), project.getProjectId(), "G2", null, null,
+        user.getEmail(), project.getProjectId(), "G2", null, null,
         TaskFilterGroupDateType.CREATED, null, null));
 
     assertEquals(2, taskFilterGroupService.getAll().size());
@@ -116,7 +116,7 @@ class TaskFilterGroupServiceTest {
   void deleteTaskFilterGroup_success() {
     TaskFilterGroupResponse created = TaskFilterGroupMapper.toResponse(
         taskFilterGroupService.create(new TaskFilterGroupCreateRequest(
-        user.getUserId(), project.getProjectId(), "G3", null, null,
+        user.getEmail(), project.getProjectId(), "G3", null, null,
         TaskFilterGroupDateType.CREATED, null, null)));
 
     taskFilterGroupService.delete(created.groupId());

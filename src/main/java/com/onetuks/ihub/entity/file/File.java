@@ -13,14 +13,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = File.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class File {
 
   public static final String TABLE_NAME = "files";
@@ -54,7 +52,7 @@ public class File {
   private String mimeType;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "uploaded_by", referencedColumnName = "user_id")
+  @JoinColumn(name = "uploaded_by", referencedColumnName = "email")
   private User uploadedBy;
 
   @Column(name = "uploaded_at")

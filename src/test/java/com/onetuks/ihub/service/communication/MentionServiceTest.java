@@ -64,37 +64,37 @@ class MentionServiceTest {
         project.getProjectId(),
         TargetType.POST,
         "1L",
-        mentioned.getUserId(),
-        creator.getUserId());
+        mentioned.getEmail(),
+        creator.getEmail());
 
     MentionResponse response = MentionMapper.toResponse(mentionService.create(request));
 
     assertNotNull(response.mentionId());
     assertEquals(TargetType.POST, response.targetType());
-    assertEquals(mentioned.getUserId(), response.mentionedUserId());
+    assertEquals(mentioned.getEmail(), response.mentionedUserId());
   }
 
   @Test
   void updateMention_success() {
     MentionResponse created = MentionMapper.toResponse(mentionService.create(new MentionCreateRequest(
-        project.getProjectId(), TargetType.POST, "1L", mentioned.getUserId(), creator.getUserId())));
+        project.getProjectId(), TargetType.POST, "1L", mentioned.getEmail(), creator.getEmail())));
 
     MentionUpdateRequest updateRequest =
-        new MentionUpdateRequest(TargetType.TASK, "2L", creator.getUserId(), mentioned.getUserId());
+        new MentionUpdateRequest(TargetType.TASK, "2L", creator.getEmail(), mentioned.getEmail());
 
     MentionResponse updated = MentionMapper.toResponse(mentionService.update(created.mentionId(), updateRequest));
 
     assertEquals(TargetType.TASK, updated.targetType());
     assertEquals("2L", updated.targetId());
-    assertEquals(creator.getUserId(), updated.mentionedUserId());
+    assertEquals(creator.getEmail(), updated.mentionedUserId());
   }
 
   @Test
   void getMentions_returnsAll() {
     mentionService.create(new MentionCreateRequest(
-        project.getProjectId(), TargetType.POST, "1L", mentioned.getUserId(), creator.getUserId()));
+        project.getProjectId(), TargetType.POST, "1L", mentioned.getEmail(), creator.getEmail()));
     mentionService.create(new MentionCreateRequest(
-        project.getProjectId(), TargetType.TASK, "2L", creator.getUserId(), creator.getUserId()));
+        project.getProjectId(), TargetType.TASK, "2L", creator.getEmail(), creator.getEmail()));
 
     assertEquals(2, mentionService.getAll().size());
   }
@@ -102,7 +102,7 @@ class MentionServiceTest {
   @Test
   void deleteMention_success() {
     MentionResponse created = MentionMapper.toResponse(mentionService.create(new MentionCreateRequest(
-        project.getProjectId(), TargetType.POST, "1L", mentioned.getUserId(), creator.getUserId())));
+        project.getProjectId(), TargetType.POST, "1L", mentioned.getEmail(), creator.getEmail())));
 
     mentionService.delete(created.mentionId());
 

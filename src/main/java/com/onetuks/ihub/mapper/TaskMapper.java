@@ -21,13 +21,13 @@ public final class TaskMapper {
         task.getTitle(),
         task.getDescription(),
         task.getStatus(),
-        task.getAssignee() != null ? task.getAssignee().getUserId() : null,
-        task.getRequester() != null ? task.getRequester().getUserId() : null,
+        task.getAssignee() != null ? task.getAssignee().getEmail() : null,
+        task.getRequester() != null ? task.getRequester().getEmail() : null,
         task.getStartDate(),
         task.getDueDate(),
         task.getPriority(),
         task.getProgress(),
-        task.getCreatedBy() != null ? task.getCreatedBy().getUserId() : null,
+        task.getCreatedBy() != null ? task.getCreatedBy().getEmail() : null,
         task.getCreatedAt(),
         task.getUpdatedAt());
   }

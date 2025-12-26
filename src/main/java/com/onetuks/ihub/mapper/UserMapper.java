@@ -13,7 +13,6 @@ public final class UserMapper {
 
   public static UserResponse toResponse(User user) {
     return new UserResponse(
-        user.getUserId(),
         user.getEmail(),
         user.getName(),
         user.getCompany(),
@@ -21,14 +20,12 @@ public final class UserMapper {
         user.getPhoneNumber(),
         user.getProfileImageUrl(),
         user.getStatus(),
-        user.getRole(),
         user.getCreatedAt(),
         user.getUpdatedAt());
   }
 
   public static void applyCreate(User user, UserCreateRequest request) {
     LocalDateTime now = LocalDateTime.now();
-    user.setUserId(UUIDProvider.provideUUID(User.TABLE_NAME));
     user.setEmail(request.email());
     user.setPassword(request.password());
     user.setName(request.name());
@@ -37,7 +34,6 @@ public final class UserMapper {
     user.setPhoneNumber(request.phoneNumber());
     user.setProfileImageUrl(request.profileImageUrl());
     user.setStatus(request.status());
-    user.setRole(request.role());
     user.setCreatedAt(now);
     user.setUpdatedAt(now);
   }
@@ -66,9 +62,6 @@ public final class UserMapper {
     }
     if (request.status() != null) {
       user.setStatus(request.status());
-    }
-    if (request.role() != null) {
-      user.setRole(request.role());
     }
     user.setUpdatedAt(LocalDateTime.now());
   }

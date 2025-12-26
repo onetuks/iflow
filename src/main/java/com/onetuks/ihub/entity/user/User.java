@@ -8,22 +8,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = User.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class User {
 
   public static final String TABLE_NAME = "users";
 
   @Id
-  @Column(name = "user_id", nullable = false)
-  private String userId;
-
   @Column(name = "email", unique = true, nullable = false)
   private String email;
 
@@ -48,10 +43,6 @@ public class User {
   @Enumerated(value = EnumType.STRING)
   @Column(name = "status", nullable = false)
   private UserStatus status;
-
-  @Enumerated(value = EnumType.STRING)
-  @Column(name = "role")
-  private UserRole role;
 
   @Column(name = "created_at")
   private LocalDateTime createdAt;

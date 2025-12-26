@@ -16,7 +16,7 @@ public final class InterfaceRevisionMapper {
         revision.getRevisionId(),
         revision.getAnInterface() != null ? revision.getAnInterface().getInterfaceId() : null,
         revision.getVersionNo(),
-        revision.getChangedBy() != null ? revision.getChangedBy().getUserId() : null,
+        revision.getChangedBy() != null ? revision.getChangedBy().getEmail() : null,
         revision.getChangedAt(),
         revision.getSnapshot(),
         revision.getReason());

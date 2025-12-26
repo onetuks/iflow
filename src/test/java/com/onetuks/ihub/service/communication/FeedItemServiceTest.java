@@ -63,7 +63,7 @@ class FeedItemServiceTest {
     FeedItemCreateRequest request = new FeedItemCreateRequest(
         project.getProjectId(),
         "CREATE",
-        actor.getUserId(),
+        actor.getEmail(),
         TargetType.POST,
         "1L",
         "summary");
@@ -72,17 +72,17 @@ class FeedItemServiceTest {
 
     assertNotNull(response.feedId());
     assertEquals("CREATE", response.eventType());
-    assertEquals(actor.getUserId(), response.actorId());
+    assertEquals(actor.getEmail(), response.actorId());
   }
 
   @Test
   void updateFeedItem_success() {
     FeedItemResponse created = FeedItemMapper.toResponse(feedItemService.create(new FeedItemCreateRequest(
-        project.getProjectId(), "EVT", actor.getUserId(), TargetType.POST, "1L", "sum")));
+        project.getProjectId(), "EVT", actor.getEmail(), TargetType.POST, "1L", "sum")));
 
     FeedItemUpdateRequest updateRequest = new FeedItemUpdateRequest(
         "UPDATED",
-        newActor.getUserId(),
+        newActor.getEmail(),
         TargetType.TASK,
         "2L",
         "updated summary");
@@ -91,15 +91,15 @@ class FeedItemServiceTest {
 
     assertEquals("UPDATED", updated.eventType());
     assertEquals(TargetType.TASK, updated.targetType());
-    assertEquals(newActor.getUserId(), updated.actorId());
+    assertEquals(newActor.getEmail(), updated.actorId());
   }
 
   @Test
   void getFeedItems_returnsAll() {
     feedItemService.create(new FeedItemCreateRequest(
-        project.getProjectId(), "A", actor.getUserId(), TargetType.POST, "1L", "s1"));
+        project.getProjectId(), "A", actor.getEmail(), TargetType.POST, "1L", "s1"));
     feedItemService.create(new FeedItemCreateRequest(
-        project.getProjectId(), "B", actor.getUserId(), TargetType.POST, "1L", "s2"));
+        project.getProjectId(), "B", actor.getEmail(), TargetType.POST, "1L", "s2"));
 
     assertEquals(2, feedItemService.getAll().size());
   }
@@ -107,7 +107,7 @@ class FeedItemServiceTest {
   @Test
   void deleteFeedItem_success() {
     FeedItemResponse created = FeedItemMapper.toResponse(feedItemService.create(new FeedItemCreateRequest(
-        project.getProjectId(), "C", actor.getUserId(), TargetType.POST, "1L", "s3")));
+        project.getProjectId(), "C", actor.getEmail(), TargetType.POST, "1L", "s3")));
 
     feedItemService.delete(created.feedId());
 

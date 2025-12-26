@@ -21,7 +21,7 @@ public final class EventMapper {
         event.getLocation(),
         event.getContent(),
         event.getRemindBeforeMinutes(),
-        event.getCreatedBy() != null ? event.getCreatedBy().getUserId() : null,
+        event.getCreatedBy() != null ? event.getCreatedBy().getEmail() : null,
         event.getCreatedAt(),
         event.getUpdatedAt());
   }

@@ -1,7 +1,6 @@
-package com.onetuks.ihub.entity.connection;
+package com.onetuks.ihub.entity.system;
 
 import com.onetuks.ihub.entity.project.Project;
-import com.onetuks.ihub.entity.system.System;
 import com.onetuks.ihub.entity.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +13,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -23,7 +21,6 @@ import org.hibernate.type.SqlTypes;
 @Table(name = Connection.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Connection {
 
   public static final String TABLE_NAME = "connections";
@@ -74,11 +71,11 @@ public class Connection {
   private String description;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "created_by", referencedColumnName = "email", nullable = false)
   private User createdBy;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "updated_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "updated_by", referencedColumnName = "email", nullable = false)
   private User updatedBy;
 
   @Column(name = "created_at")

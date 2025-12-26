@@ -13,14 +13,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = InterfaceStatusTransition.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class InterfaceStatusTransition {
 
   public static final String TABLE_NAME = "interface_status_transitions";
@@ -53,6 +51,6 @@ public class InterfaceStatusTransition {
   private LocalDateTime createdAt;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "created_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "created_by", referencedColumnName = "email", nullable = false)
   private User createdBy;
 }

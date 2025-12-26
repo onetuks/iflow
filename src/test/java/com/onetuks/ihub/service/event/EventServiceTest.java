@@ -66,7 +66,7 @@ class EventServiceTest {
         "Room1",
         "Content",
         30,
-        creator.getUserId());
+        creator.getEmail());
 
     EventResponse response = EventMapper.toResponse(eventService.create(request));
 
@@ -79,7 +79,7 @@ class EventServiceTest {
   void updateEvent_success() {
     EventResponse created = EventMapper.toResponse(eventService.create(new EventCreateRequest(
         project.getProjectId(), "Planning", LocalDateTime.now(), LocalDateTime.now().plusHours(1),
-        "Room2", "desc", 15, creator.getUserId())));
+        "Room2", "desc", 15, creator.getEmail())));
 
     EventUpdateRequest updateRequest = new EventUpdateRequest(
         "Planning Updated",
@@ -98,9 +98,9 @@ class EventServiceTest {
   @Test
   void getEvents_returnsAll() {
     eventService.create(new EventCreateRequest(
-        project.getProjectId(), "E1", null, null, null, null, null, creator.getUserId()));
+        project.getProjectId(), "E1", null, null, null, null, null, creator.getEmail()));
     eventService.create(new EventCreateRequest(
-        project.getProjectId(), "E2", null, null, null, null, null, creator.getUserId()));
+        project.getProjectId(), "E2", null, null, null, null, null, creator.getEmail()));
 
     assertEquals(2, eventService.getAll().size());
   }
@@ -108,7 +108,7 @@ class EventServiceTest {
   @Test
   void deleteEvent_success() {
     EventResponse created = EventMapper.toResponse(eventService.create(new EventCreateRequest(
-        project.getProjectId(), "E3", null, null, null, null, null, creator.getUserId())));
+        project.getProjectId(), "E3", null, null, null, null, null, creator.getEmail())));
 
     eventService.delete(created.eventId());
 

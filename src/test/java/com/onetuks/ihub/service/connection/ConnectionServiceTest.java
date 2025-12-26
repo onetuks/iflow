@@ -8,12 +8,9 @@ import com.onetuks.ihub.TestcontainersConfiguration;
 import com.onetuks.ihub.dto.connection.ConnectionCreateRequest;
 import com.onetuks.ihub.dto.connection.ConnectionResponse;
 import com.onetuks.ihub.dto.connection.ConnectionUpdateRequest;
-import com.onetuks.ihub.entity.connection.ConnectionStatus;
-import com.onetuks.ihub.entity.connection.Protocol;
+import com.onetuks.ihub.entity.system.ConnectionStatus;
+import com.onetuks.ihub.entity.system.Protocol;
 import com.onetuks.ihub.entity.project.Project;
-import com.onetuks.ihub.entity.system.SystemEnvironment;
-import com.onetuks.ihub.entity.system.SystemStatus;
-import com.onetuks.ihub.entity.system.SystemType;
 import com.onetuks.ihub.entity.user.User;
 import com.onetuks.ihub.mapper.ConnectionMapper;
 import com.onetuks.ihub.repository.ConnectionJpaRepository;
@@ -21,6 +18,7 @@ import com.onetuks.ihub.repository.ProjectJpaRepository;
 import com.onetuks.ihub.repository.SystemJpaRepository;
 import com.onetuks.ihub.repository.UserJpaRepository;
 import com.onetuks.ihub.service.ServiceTestDataFactory;
+import com.onetuks.ihub.service.system.ConnectionService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,8 +83,8 @@ class ConnectionServiceTest {
         "{\"k\":\"v\"}",
         ConnectionStatus.ACTIVE,
         "desc",
-        creator.getUserId(),
-        updater.getUserId());
+        creator.getEmail(),
+        updater.getEmail());
 
     ConnectionResponse response = ConnectionMapper.toResponse(connectionService.create(request));
 
@@ -112,8 +110,8 @@ class ConnectionServiceTest {
             null,
             ConnectionStatus.ACTIVE,
             "desc",
-            creator.getUserId(),
-            updater.getUserId())));
+            creator.getEmail(),
+            updater.getEmail())));
 
     ConnectionUpdateRequest updateRequest = new ConnectionUpdateRequest(
         project.getProjectId(),
@@ -128,7 +126,7 @@ class ConnectionServiceTest {
         "{\"new\":\"json\"}",
         ConnectionStatus.INACTIVE,
         "new desc",
-        creator.getUserId());
+        creator.getEmail());
 
     ConnectionResponse updated = ConnectionMapper.toResponse(
         connectionService.update(created.connectionId(), updateRequest));
@@ -143,10 +141,10 @@ class ConnectionServiceTest {
   void getConnections_returnsAll() {
     connectionService.create(new ConnectionCreateRequest(
         project.getProjectId(), system.getSystemId(), "C1", Protocol.HTTP, null, null, null,
-        null, null, null, ConnectionStatus.ACTIVE, null, creator.getUserId(), updater.getUserId()));
+        null, null, null, ConnectionStatus.ACTIVE, null, creator.getEmail(), updater.getEmail()));
     connectionService.create(new ConnectionCreateRequest(
         project.getProjectId(), system.getSystemId(), "C2", Protocol.HTTP, null, null, null,
-        null, null, null, ConnectionStatus.ACTIVE, null, creator.getUserId(), updater.getUserId()));
+        null, null, null, ConnectionStatus.ACTIVE, null, creator.getEmail(), updater.getEmail()));
 
     assertEquals(2, connectionService.getAll().size());
   }
@@ -156,7 +154,7 @@ class ConnectionServiceTest {
     ConnectionResponse created = ConnectionMapper.toResponse(connectionService.create(
         new ConnectionCreateRequest(
             project.getProjectId(), system.getSystemId(), "C3", Protocol.HTTP, null, null, null,
-            null, null, null, ConnectionStatus.ACTIVE, null, creator.getUserId(), updater.getUserId())));
+            null, null, null, ConnectionStatus.ACTIVE, null, creator.getEmail(), updater.getEmail())));
 
     connectionService.delete(created.connectionId());
 

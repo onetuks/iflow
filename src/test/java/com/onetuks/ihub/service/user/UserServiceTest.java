@@ -8,7 +8,6 @@ import com.onetuks.ihub.TestcontainersConfiguration;
 import com.onetuks.ihub.dto.user.UserCreateRequest;
 import com.onetuks.ihub.dto.user.UserResponse;
 import com.onetuks.ihub.dto.user.UserUpdateRequest;
-import com.onetuks.ihub.entity.user.UserRole;
 import com.onetuks.ihub.entity.user.UserStatus;
 import com.onetuks.ihub.mapper.UserMapper;
 import com.onetuks.ihub.repository.UserJpaRepository;
@@ -41,7 +40,7 @@ class UserServiceTest {
 
     UserResponse response = UserMapper.toResponse(userService.create(request));
 
-    assertNotNull(response.userId());
+    assertNotNull(response.email());
     assertEquals("user1@example.com", response.email());
     assertEquals("User One", response.name());
     assertEquals(UserStatus.ACTIVE, response.status());
@@ -61,10 +60,9 @@ class UserServiceTest {
         "Lead",
         "010-0000-0000",
         "http://example.com/img.png",
-        UserStatus.INACTIVE,
-        UserRole.LEGACY);
+        UserStatus.INACTIVE);
 
-    UserResponse updated = UserMapper.toResponse(userService.update(created.userId(), updateRequest));
+    UserResponse updated = UserMapper.toResponse(userService.update(created.email(), updateRequest));
 
     assertEquals("user2_new@example.com", updated.email());
     assertEquals("User Two Updated", updated.name());
@@ -73,7 +71,6 @@ class UserServiceTest {
     assertEquals("010-0000-0000", updated.phoneNumber());
     assertEquals("http://example.com/img.png", updated.profileImageUrl());
     assertEquals(UserStatus.INACTIVE, updated.status());
-    assertEquals(UserRole.LEGACY, updated.role());
   }
 
   @Test
@@ -91,10 +88,10 @@ class UserServiceTest {
     UserResponse created = UserMapper.toResponse(userService.create(
         createRequest("user3@example.com", "User Three")));
 
-    userService.delete(created.userId());
+    userService.delete(created.email());
 
     assertEquals(0, userJpaRepository.count());
-    assertThrows(EntityNotFoundException.class, () -> userService.getById(created.userId()));
+    assertThrows(EntityNotFoundException.class, () -> userService.getById(created.email()));
   }
 
   private UserCreateRequest createRequest(String email, String name) {
@@ -106,7 +103,6 @@ class UserServiceTest {
         "Position",
         "010-1234-5678",
         "http://example.com/profile.png",
-        UserStatus.ACTIVE,
-        UserRole.EAI);
+        UserStatus.ACTIVE);
   }
 }

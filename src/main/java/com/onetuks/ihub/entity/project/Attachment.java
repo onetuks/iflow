@@ -14,14 +14,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = Attachment.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Attachment {
 
   public static final String TABLE_NAME = "attachments";
@@ -46,7 +44,7 @@ public class Attachment {
   private String targetId;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "attached_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "attached_by", referencedColumnName = "email", nullable = false)
   private User attachedBy;
 
   @Column(name = "attached_at")

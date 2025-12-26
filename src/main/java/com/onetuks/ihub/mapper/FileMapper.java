@@ -21,7 +21,7 @@ public final class FileMapper {
         file.getStoredName(),
         file.getSizeBytes(),
         file.getMimeType(),
-        file.getUploadedBy() != null ? file.getUploadedBy().getUserId() : null,
+        file.getUploadedBy() != null ? file.getUploadedBy().getEmail() : null,
         file.getUploadedAt(),
         file.getDeletedAt());
   }

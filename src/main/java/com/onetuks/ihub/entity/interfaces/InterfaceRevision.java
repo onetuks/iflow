@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Map;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -20,7 +19,6 @@ import org.hibernate.type.SqlTypes;
 @Table(name = InterfaceRevision.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class InterfaceRevision {
 
   public static final String TABLE_NAME = "interface_revisions";
@@ -37,7 +35,7 @@ public class InterfaceRevision {
   private Integer versionNo;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "changed_by", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "changed_by", referencedColumnName = "email", nullable = false)
   private User changedBy;
 
   @Column(name = "changed_at")

@@ -20,8 +20,8 @@ public final class ProjectMapper {
         project.getStartDate(),
         project.getEndDate(),
         project.getStatus(),
-        project.getCreatedBy() != null ? project.getCreatedBy().getUserId() : null,
-        project.getCurrentAdmin() != null ? project.getCurrentAdmin().getUserId() : null,
+        project.getCreatedBy() != null ? project.getCreatedBy().getEmail() : null,
+        project.getCurrentAdmin() != null ? project.getCurrentAdmin().getEmail() : null,
         project.getCreatedAt(),
         project.getUpdatedAt());
   }

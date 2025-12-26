@@ -10,7 +10,6 @@ import com.onetuks.ihub.dto.project.ProjectResponse;
 import com.onetuks.ihub.dto.project.ProjectUpdateRequest;
 import com.onetuks.ihub.entity.project.ProjectStatus;
 import com.onetuks.ihub.entity.user.User;
-import com.onetuks.ihub.entity.user.UserRole;
 import com.onetuks.ihub.entity.user.UserStatus;
 import com.onetuks.ihub.mapper.ProjectMapper;
 import com.onetuks.ihub.repository.ProjectJpaRepository;
@@ -60,8 +59,8 @@ class ProjectServiceTest {
         "Desc",
         LocalDate.now(),
         LocalDate.now().plusDays(10),
-        creator.getUserId(),
-        admin.getUserId(),
+        creator.getEmail(),
+        admin.getEmail(),
         ProjectStatus.ACTIVE);
 
     ProjectResponse response = ProjectMapper.toResponse(projectService.create(request));
@@ -69,8 +68,8 @@ class ProjectServiceTest {
     assertNotNull(response.projectId());
     assertEquals("Project A", response.title());
     assertEquals(ProjectStatus.ACTIVE, response.status());
-    assertEquals(creator.getUserId(), response.createdById());
-    assertEquals(admin.getUserId(), response.currentAdminId());
+    assertEquals(creator.getEmail(), response.createdById());
+    assertEquals(admin.getEmail(), response.currentAdminId());
   }
 
   @Test
@@ -80,8 +79,8 @@ class ProjectServiceTest {
         "Desc",
         LocalDate.now(),
         LocalDate.now().plusDays(5),
-        creator.getUserId(),
-        admin.getUserId(),
+        creator.getEmail(),
+        admin.getEmail(),
         ProjectStatus.ACTIVE)));
 
     ProjectUpdateRequest updateRequest = new ProjectUpdateRequest(
@@ -89,7 +88,7 @@ class ProjectServiceTest {
         "New Desc",
         LocalDate.now().plusDays(1),
         LocalDate.now().plusDays(8),
-        creator.getUserId(), // swap admin
+        creator.getEmail(), // swap admin
         ProjectStatus.INACTIVE);
 
     ProjectResponse updated = ProjectMapper.toResponse(projectService.update(created.projectId(), updateRequest));
@@ -97,15 +96,15 @@ class ProjectServiceTest {
     assertEquals("Project B Updated", updated.title());
     assertEquals("New Desc", updated.description());
     assertEquals(ProjectStatus.INACTIVE, updated.status());
-    assertEquals(creator.getUserId(), updated.currentAdminId());
+    assertEquals(creator.getEmail(), updated.currentAdminId());
   }
 
   @Test
   void getProjects_returnsAll() {
     projectService.create(new ProjectCreateRequest(
-        "P1", null, null, null, creator.getUserId(), admin.getUserId(), ProjectStatus.ACTIVE));
+        "P1", null, null, null, creator.getEmail(), admin.getEmail(), ProjectStatus.ACTIVE));
     projectService.create(new ProjectCreateRequest(
-        "P2", null, null, null, creator.getUserId(), admin.getUserId(), ProjectStatus.ACTIVE));
+        "P2", null, null, null, creator.getEmail(), admin.getEmail(), ProjectStatus.ACTIVE));
 
     List<ProjectResponse> responses =
         projectService.getAll().stream().map(ProjectMapper::toResponse).toList();
@@ -116,7 +115,7 @@ class ProjectServiceTest {
   @Test
   void deleteProject_success() {
     ProjectResponse created = ProjectMapper.toResponse(projectService.create(new ProjectCreateRequest(
-        "P3", null, null, null, creator.getUserId(), admin.getUserId(), ProjectStatus.ACTIVE)));
+        "P3", null, null, null, creator.getEmail(), admin.getEmail(), ProjectStatus.ACTIVE)));
 
     projectService.delete(created.projectId());
 
@@ -130,7 +129,6 @@ class ProjectServiceTest {
     user.setPassword("pass");
     user.setName(name);
     user.setStatus(UserStatus.ACTIVE);
-    user.setRole(UserRole.EAI);
     return user;
   }
 }

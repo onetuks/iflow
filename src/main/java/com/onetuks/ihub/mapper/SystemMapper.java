@@ -20,8 +20,8 @@ public final class SystemMapper {
         system.getDescription(),
         system.getSystemType(),
         system.getEnvironment(),
-        system.getCreatedBy() != null ? system.getCreatedBy().getUserId() : null,
-        system.getUpdatedBy() != null ? system.getUpdatedBy().getUserId() : null,
+        system.getCreatedBy() != null ? system.getCreatedBy().getEmail() : null,
+        system.getUpdatedBy() != null ? system.getUpdatedBy().getEmail() : null,
         system.getCreatedAt(),
         system.getUpdatedAt());
   }

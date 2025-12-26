@@ -11,14 +11,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = EventAttendee.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class EventAttendee {
 
   public static final String TABLE_NAME = "event_attendees";
@@ -32,7 +30,7 @@ public class EventAttendee {
   private Event event;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+  @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
   private User user;
 
   @Column(name = "is_mandatory")

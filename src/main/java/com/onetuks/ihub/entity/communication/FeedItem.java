@@ -13,14 +13,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = FeedItem.TABLE_NAME)
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class FeedItem {
 
   public static final String TABLE_NAME = "feed_items";
@@ -37,7 +35,7 @@ public class FeedItem {
   private String eventType;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "actor_id", referencedColumnName = "user_id")
+  @JoinColumn(name = "actor_id", referencedColumnName = "email")
   private User actor;
 
   @Enumerated(value = EnumType.STRING)

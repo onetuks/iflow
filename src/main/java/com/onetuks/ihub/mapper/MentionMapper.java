@@ -17,8 +17,8 @@ public final class MentionMapper {
         mention.getProject() != null ? mention.getProject().getProjectId() : null,
         mention.getTargetType(),
         mention.getTargetId(),
-        mention.getMentionedUser() != null ? mention.getMentionedUser().getUserId() : null,
-        mention.getCreatedBy() != null ? mention.getCreatedBy().getUserId() : null,
+        mention.getMentionedUser() != null ? mention.getMentionedUser().getEmail() : null,
+        mention.getCreatedBy() != null ? mention.getCreatedBy().getEmail() : null,
         mention.getCreatedAt());
   }
 

@@ -19,7 +19,7 @@ public final class CommentMapper {
         comment.getTargetType(),
         comment.getTargetId(),
         comment.getContent(),
-        comment.getCreatedBy() != null ? comment.getCreatedBy().getUserId() : null,
+        comment.getCreatedBy() != null ? comment.getCreatedBy().getEmail() : null,
         comment.getCreatedAt(),
         comment.getUpdatedAt());
   }

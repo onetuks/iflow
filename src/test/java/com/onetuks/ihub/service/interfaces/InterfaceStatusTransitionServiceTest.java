@@ -77,7 +77,7 @@ class InterfaceStatusTransitionServiceTest {
         toStatus.getStatusId(),
         InterfaceRole.ADMIN,
         InterfaceStatusTransitionStatus.ACTIVE,
-        user.getUserId());
+        user.getEmail());
 
     InterfaceStatusTransitionResponse response = InterfaceStatusTransitionMapper.toResponse(
         interfaceStatusTransitionService.create(request));
@@ -93,7 +93,7 @@ class InterfaceStatusTransitionServiceTest {
         interfaceStatusTransitionService.create(
         new InterfaceStatusTransitionCreateRequest(
             project.getProjectId(), fromStatus.getStatusId(), toStatus.getStatusId(),
-            InterfaceRole.ADMIN, InterfaceStatusTransitionStatus.ACTIVE, user.getUserId())));
+            InterfaceRole.ADMIN, InterfaceStatusTransitionStatus.ACTIVE, user.getEmail())));
 
     InterfaceStatusTransitionUpdateRequest updateRequest =
         new InterfaceStatusTransitionUpdateRequest(
@@ -113,10 +113,10 @@ class InterfaceStatusTransitionServiceTest {
   void getInterfaceStatusTransitions_returnsAll() {
     interfaceStatusTransitionService.create(new InterfaceStatusTransitionCreateRequest(
         project.getProjectId(), fromStatus.getStatusId(), toStatus.getStatusId(),
-        InterfaceRole.ADMIN, InterfaceStatusTransitionStatus.ACTIVE, user.getUserId()));
+        InterfaceRole.ADMIN, InterfaceStatusTransitionStatus.ACTIVE, user.getEmail()));
     interfaceStatusTransitionService.create(new InterfaceStatusTransitionCreateRequest(
         project.getProjectId(), toStatus.getStatusId(), fromStatus.getStatusId(),
-        InterfaceRole.MEMBER, InterfaceStatusTransitionStatus.ACTIVE, user.getUserId()));
+        InterfaceRole.MEMBER, InterfaceStatusTransitionStatus.ACTIVE, user.getEmail()));
 
     assertEquals(2, interfaceStatusTransitionService.getAll().size());
   }
@@ -127,7 +127,7 @@ class InterfaceStatusTransitionServiceTest {
         interfaceStatusTransitionService.create(
         new InterfaceStatusTransitionCreateRequest(
             project.getProjectId(), fromStatus.getStatusId(), toStatus.getStatusId(),
-            InterfaceRole.ADMIN, InterfaceStatusTransitionStatus.ACTIVE, user.getUserId())));
+            InterfaceRole.ADMIN, InterfaceStatusTransitionStatus.ACTIVE, user.getEmail())));
 
     interfaceStatusTransitionService.delete(created.transitionId());
 

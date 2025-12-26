@@ -16,7 +16,7 @@ public final class FeedItemMapper {
         feedItem.getFeedId(),
         feedItem.getProject() != null ? feedItem.getProject().getProjectId() : null,
         feedItem.getEventType(),
-        feedItem.getActor() != null ? feedItem.getActor().getUserId() : null,
+        feedItem.getActor() != null ? feedItem.getActor().getEmail() : null,
         feedItem.getTargetType(),
         feedItem.getTargetId(),
         feedItem.getSummary(),

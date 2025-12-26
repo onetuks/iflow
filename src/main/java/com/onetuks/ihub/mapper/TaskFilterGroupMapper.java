@@ -14,7 +14,7 @@ public final class TaskFilterGroupMapper {
   public static TaskFilterGroupResponse toResponse(TaskFilterGroup group) {
     return new TaskFilterGroupResponse(
         group.getGroupId(),
-        group.getUser() != null ? group.getUser().getUserId() : null,
+        group.getUser() != null ? group.getUser().getEmail() : null,
         group.getProject() != null ? group.getProject().getProjectId() : null,
         group.getName(),
         group.getAssigneeKeyword(),

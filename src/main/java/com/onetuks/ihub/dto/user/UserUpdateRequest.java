@@ -1,6 +1,5 @@
 package com.onetuks.ihub.dto.user;
 
-import com.onetuks.ihub.entity.user.UserRole;
 import com.onetuks.ihub.entity.user.UserStatus;
 import jakarta.validation.constraints.Email;
 
@@ -12,7 +11,6 @@ public record UserUpdateRequest(
     String position,
     String phoneNumber,
     String profileImageUrl,
-    UserStatus status,
-    UserRole role
+    UserStatus status
 ) {
 }

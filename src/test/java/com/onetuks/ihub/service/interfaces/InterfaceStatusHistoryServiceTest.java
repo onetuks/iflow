@@ -84,7 +84,7 @@ class InterfaceStatusHistoryServiceTest {
         "M", InterfaceType.REALTIME, "p",
         com.onetuks.ihub.entity.interfaces.ChannelAdapter.HTTP,
         com.onetuks.ihub.entity.interfaces.ChannelAdapter.HTTP,
-        SyncAsyncType.SYNC, fromStatus.getStatusId(), "b", "r", user.getUserId()))).interfaceId();
+        SyncAsyncType.SYNC, fromStatus.getStatusId(), "b", "r", user.getEmail()))).interfaceId();
     task = ServiceTestDataFactory.createTask(taskJpaRepository, project, user, "TaskH");
   }
 
@@ -104,7 +104,7 @@ class InterfaceStatusHistoryServiceTest {
         interfaceId,
         fromStatus.getStatusId(),
         toStatus.getStatusId(),
-        user.getUserId(),
+        user.getEmail(),
         task.getTaskId(),
         "reason");
 
@@ -121,7 +121,7 @@ class InterfaceStatusHistoryServiceTest {
     InterfaceStatusHistoryResponse created = InterfaceStatusHistoryMapper.toResponse(
         interfaceStatusHistoryService.create(
             new InterfaceStatusHistoryCreateRequest(
-                interfaceId, fromStatus.getStatusId(), toStatus.getStatusId(), user.getUserId(),
+                interfaceId, fromStatus.getStatusId(), toStatus.getStatusId(), user.getEmail(),
                 task.getTaskId(), "reason")));
     InterfaceStatusHistoryUpdateRequest updateRequest =
         new InterfaceStatusHistoryUpdateRequest(toStatus.getStatusId(), "new reason");
@@ -135,10 +135,10 @@ class InterfaceStatusHistoryServiceTest {
   @Test
   void getInterfaceStatusHistories_returnsAll() {
     interfaceStatusHistoryService.create(new InterfaceStatusHistoryCreateRequest(
-        interfaceId, fromStatus.getStatusId(), toStatus.getStatusId(), user.getUserId(),
+        interfaceId, fromStatus.getStatusId(), toStatus.getStatusId(), user.getEmail(),
         task.getTaskId(), "r1"));
     interfaceStatusHistoryService.create(new InterfaceStatusHistoryCreateRequest(
-        interfaceId, toStatus.getStatusId(), fromStatus.getStatusId(), user.getUserId(),
+        interfaceId, toStatus.getStatusId(), fromStatus.getStatusId(), user.getEmail(),
         task.getTaskId(), "r2"));
 
     assertEquals(2, interfaceStatusHistoryService.getAll().size());
@@ -149,7 +149,7 @@ class InterfaceStatusHistoryServiceTest {
     InterfaceStatusHistoryResponse created = InterfaceStatusHistoryMapper.toResponse(
         interfaceStatusHistoryService.create(
             new InterfaceStatusHistoryCreateRequest(
-                interfaceId, fromStatus.getStatusId(), toStatus.getStatusId(), user.getUserId(),
+                interfaceId, fromStatus.getStatusId(), toStatus.getStatusId(), user.getEmail(),
                 task.getTaskId(), "r1")));
 
     interfaceStatusHistoryService.delete(created.historyId());
