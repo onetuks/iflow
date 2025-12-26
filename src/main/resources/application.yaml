@@ -14,3 +14,7 @@ spring:
         hibernate:
             ddl-auto: update
         database-platform: org.hibernate.dialect.MySQLDialect
+
+springdoc:
+    swagger-ui:
+        path: /api/docs
