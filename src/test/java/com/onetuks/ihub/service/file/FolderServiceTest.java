@@ -8,7 +8,6 @@ import com.onetuks.ihub.TestcontainersConfiguration;
 import com.onetuks.ihub.dto.file.FolderCreateRequest;
 import com.onetuks.ihub.dto.file.FolderResponse;
 import com.onetuks.ihub.dto.file.FolderUpdateRequest;
-import com.onetuks.ihub.entity.file.Folder;
 import com.onetuks.ihub.entity.project.Project;
 import com.onetuks.ihub.entity.user.User;
 import com.onetuks.ihub.mapper.FolderMapper;
@@ -45,7 +44,7 @@ class FolderServiceTest {
 
   @BeforeEach
   void setUp() {
-    creator = ServiceTestDataFactory.createUser(userJpaRepository, "folder@user.com", "FolderUser");
+    creator = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, creator, "FolderProj");
   }
 

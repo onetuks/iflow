@@ -44,7 +44,7 @@ class InterfaceStatusServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "ifstatus@user.com", "User");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "IFStatusProj");
   }
 

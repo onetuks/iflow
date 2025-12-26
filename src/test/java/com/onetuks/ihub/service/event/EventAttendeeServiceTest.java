@@ -57,8 +57,8 @@ class EventAttendeeServiceTest {
 
   @BeforeEach
   void setUp() {
-    creator = ServiceTestDataFactory.createUser(userJpaRepository, "event.creator@test.com", "Creator");
-    attendeeUser = ServiceTestDataFactory.createUser(userJpaRepository, "event.attendee@test.com", "Attendee");
+    creator = ServiceTestDataFactory.createUser(userJpaRepository);
+    attendeeUser = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, creator, "EventAttendeeProj");
     eventId = EventMapper.toResponse(eventService.create(new EventCreateRequest(
         project.getProjectId(), "Session", LocalDateTime.now(), LocalDateTime.now().plusHours(1),

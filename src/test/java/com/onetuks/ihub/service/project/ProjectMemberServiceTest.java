@@ -46,7 +46,7 @@ class ProjectMemberServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "member@user.com", "Member");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "MemberProj");
   }
 

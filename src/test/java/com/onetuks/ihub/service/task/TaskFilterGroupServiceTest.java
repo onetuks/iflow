@@ -46,7 +46,7 @@ class TaskFilterGroupServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "group@user.com", "GroupUser");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "GroupProj");
   }
 

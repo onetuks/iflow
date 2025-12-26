@@ -53,7 +53,7 @@ class InterfaceStatusTransitionServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "iftran@user.com", "IFTran");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "IFTranProj");
     fromStatus =
         ServiceTestDataFactory.createInterfaceStatus(interfaceStatusJpaRepository, project, "Draft", 1);

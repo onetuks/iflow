@@ -53,8 +53,8 @@ class ConnectionServiceTest {
 
   @BeforeEach
   void setUp() {
-    creator = ServiceTestDataFactory.createUser(userJpaRepository, "creator@conn.com", "Creator");
-    updater = ServiceTestDataFactory.createUser(userJpaRepository, "updater@conn.com", "Updater");
+    creator = ServiceTestDataFactory.createUser(userJpaRepository);
+    updater = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, updater, "ConnProj");
     system = ServiceTestDataFactory.createSystem(
         systemJpaRepository, project, creator, updater, "SYS-CONN");

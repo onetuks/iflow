@@ -55,7 +55,7 @@ class TaskFilterGroupStatusServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "groupstatus@user.com", "GSUser");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     var project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "GSProj");
     group = TaskFilterGroupMapper.toResponse(taskFilterGroupService.create(
         new TaskFilterGroupCreateRequest(

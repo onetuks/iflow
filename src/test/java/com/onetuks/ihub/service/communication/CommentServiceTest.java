@@ -45,7 +45,7 @@ class CommentServiceTest {
 
   @BeforeEach
   void setUp() {
-    author = ServiceTestDataFactory.createUser(userJpaRepository, "comment@user.com", "CommentUser");
+    author = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, author, author, "CommentProj");
   }
 

@@ -58,7 +58,7 @@ class AttachmentServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "attach@user.com", "AttachUser");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "AttachProj");
     FileResponse file = FileMapper.toResponse(fileService.create(new FileCreateRequest(
         project.getProjectId(), null, FileStatus.ACTIVE, "orig", "stored", 10L, "text", user.getEmail())));

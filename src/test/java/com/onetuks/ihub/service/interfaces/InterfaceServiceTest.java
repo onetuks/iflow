@@ -61,7 +61,7 @@ class InterfaceServiceTest {
 
   @BeforeEach
   void setUp() {
-    user = ServiceTestDataFactory.createUser(userJpaRepository, "if@user.com", "IFUser");
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, user, user, "IFProj");
     sourceSystem = ServiceTestDataFactory.createSystem(
         systemJpaRepository, project, user, user, "SRC");

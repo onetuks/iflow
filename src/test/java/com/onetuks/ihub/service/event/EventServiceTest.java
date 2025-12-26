@@ -45,7 +45,7 @@ class EventServiceTest {
 
   @BeforeEach
   void setUp() {
-    creator = ServiceTestDataFactory.createUser(userJpaRepository, "event@user.com", "EventUser");
+    creator = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, creator, "EventProj");
   }
 

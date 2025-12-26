@@ -46,8 +46,8 @@ class FeedItemServiceTest {
 
   @BeforeEach
   void setUp() {
-    actor = ServiceTestDataFactory.createUser(userJpaRepository, "feed@actor.com", "Actor");
-    newActor = ServiceTestDataFactory.createUser(userJpaRepository, "feed@actor2.com", "Actor2");
+    actor = ServiceTestDataFactory.createUser(userJpaRepository);
+    newActor = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, actor, actor, "FeedProj");
   }
 

@@ -48,8 +48,8 @@ class SystemServiceTest {
 
   @BeforeEach
   void setUp() {
-    creator = ServiceTestDataFactory.createUser(userJpaRepository, "creator@sys.com", "Creator");
-    updater = ServiceTestDataFactory.createUser(userJpaRepository, "updater@sys.com", "Updater");
+    creator = ServiceTestDataFactory.createUser(userJpaRepository);
+    updater = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, updater, "SysProj");
   }
 

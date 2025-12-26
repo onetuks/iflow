@@ -57,7 +57,7 @@ class FileServiceTest {
 
   @BeforeEach
   void setUp() {
-    uploader = ServiceTestDataFactory.createUser(userJpaRepository, "file@user.com", "FileUser");
+    uploader = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, uploader, uploader, "FileProj");
     FolderResponse folderResponse = FolderMapper.toResponse(folderService.create(new FolderCreateRequest(
         project.getProjectId(), null, "Docs", uploader.getEmail())));

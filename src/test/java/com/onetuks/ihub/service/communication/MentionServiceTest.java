@@ -46,8 +46,8 @@ class MentionServiceTest {
 
   @BeforeEach
   void setUp() {
-    creator = ServiceTestDataFactory.createUser(userJpaRepository, "mention@creator.com", "Creator");
-    mentioned = ServiceTestDataFactory.createUser(userJpaRepository, "mention@user.com", "Mentioned");
+    creator = ServiceTestDataFactory.createUser(userJpaRepository);
+    mentioned = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, creator, creator, "MentionProj");
   }
 

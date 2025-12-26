@@ -44,8 +44,8 @@ class RoleServiceTest {
 
   @BeforeEach
   void setup() {
-    user = userJpaRepository.save(ServiceTestDataFactory.createUser());
-    roles = roleJpaRepository.saveAll(ServiceTestDataFactory.createRoles());
+    user = ServiceTestDataFactory.createUser(userJpaRepository);
+    roles = ServiceTestDataFactory.createRoles(roleJpaRepository);
   }
 
   @Test

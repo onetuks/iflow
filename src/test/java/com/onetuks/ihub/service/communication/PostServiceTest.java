@@ -44,7 +44,7 @@ class PostServiceTest {
 
   @BeforeEach
   void setUp() {
-    author = ServiceTestDataFactory.createUser(userJpaRepository, "post@user.com", "PostUser");
+    author = ServiceTestDataFactory.createUser(userJpaRepository);
     project = ServiceTestDataFactory.createProject(projectJpaRepository, author, author, "PostProj");
   }
 

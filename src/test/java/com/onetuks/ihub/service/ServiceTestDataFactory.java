@@ -18,6 +18,7 @@ import com.onetuks.ihub.mapper.UUIDProvider;
 import com.onetuks.ihub.repository.InterfaceJpaRepository;
 import com.onetuks.ihub.repository.InterfaceStatusJpaRepository;
 import com.onetuks.ihub.repository.ProjectJpaRepository;
+import com.onetuks.ihub.repository.RoleJpaRepository;
 import com.onetuks.ihub.repository.SystemJpaRepository;
 import com.onetuks.ihub.repository.TaskJpaRepository;
 import com.onetuks.ihub.repository.UserJpaRepository;
@@ -31,37 +32,33 @@ public final class ServiceTestDataFactory {
   private ServiceTestDataFactory() {
   }
 
-  public static User createUser() {
-    return new User(
-        UUID.randomUUID().toString().substring(0, 10) + "@naver.com",
-        "pass", "나훈아", new String[]{"인스피언", "하이닉스"}[new Random().nextInt(2)],
-        "선임", "010-1234-4321", "profile-img.png",
-        UserStatus.ACTIVE, LocalDateTime.now(), LocalDateTime.now());
+  public static List<Role> createRoles(RoleJpaRepository roleJpaRepository) {
+    return roleJpaRepository.saveAll(
+        List.of(
+            new Role(
+                UUIDProvider.provideUUID(Role.TABLE_NAME),
+                "USER_FULL_ACCESS",
+                "계정 다건조회/단건조회/생성/수정"),
+            new Role(UUIDProvider.provideUUID(Role.TABLE_NAME),
+                "PROJECT_PERSONAL_ACCESS",
+                "프로젝트 단건조회/생성/수정/권한수정 (내 플젝만 가능), 멤버삭제"),
+            new Role(UUIDProvider.provideUUID(Role.TABLE_NAME),
+                "SYSTEM_PERSONAL_ACCESS",
+                "시스템 다건조회/생성/수정/삭제(내 플젝만 가능)"),
+            new Role(UUIDProvider.provideUUID(Role.TABLE_NAME), "TASK_FULL_ACCESS", "일감 다건조회/단건조회"),
+            new Role(
+                UUIDProvider.provideUUID(Role.TABLE_NAME),
+                "POST_FULL_ACCESS",
+                "다건조회/단건조회/생성/수정/삭제")));
   }
 
-  public static List<Role> createRoles() {
-    return List.of(
-        new Role(
-            UUIDProvider.provideUUID(Role.TABLE_NAME), "USER_FULL_ACCESS", "계정 다건조회/단건조회/생성/수정"),
-        new Role(UUIDProvider.provideUUID(Role.TABLE_NAME), "PROJECT_PERSONAL_ACCESS",
-            "프로젝트 단건조회/생성/수정/권한수정 (내 플젝만 가능), 멤버삭제"),
-        new Role(UUIDProvider.provideUUID(Role.TABLE_NAME), "SYSTEM_PERSONAL_ACCESS",
-            "시스템 다건조회/생성/수정/삭제(내 플젝만 가능)"),
-        new Role(UUIDProvider.provideUUID(Role.TABLE_NAME), "TASK_FULL_ACCESS", "일감 다건조회/단건조회"),
-        new Role(
-            UUIDProvider.provideUUID(Role.TABLE_NAME), "POST_FULL_ACCESS", "다건조회/단건조회/생성/수정/삭제")
-    );
-  }
-
-  public static User createUser(UserJpaRepository userJpaRepository, String email, String name) {
-    User user = new User();
-    user.setEmail(email);
-    user.setPassword("pass");
-    user.setName(name);
-    user.setStatus(UserStatus.ACTIVE);
-    user.setCreatedAt(LocalDateTime.now());
-    user.setUpdatedAt(LocalDateTime.now());
-    return userJpaRepository.save(user);
+  public static User createUser(UserJpaRepository userJpaRepository) {
+    return userJpaRepository.save(
+        new User(
+            UUID.randomUUID().toString().substring(0, 10) + "@naver.com",
+            "pass", "나훈아", new String[]{"인스피언", "하이닉스"}[new Random().nextInt(2)],
+            "선임", "010-1234-4321", "profile-img.png",
+            UserStatus.ACTIVE, LocalDateTime.now(), LocalDateTime.now()));
   }
 
   public static Project createProject(
