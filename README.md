@@ -25,8 +25,8 @@ Table users {
 
 Table user_roles {
     user_role_id varchar2 [pk]
-    user_id varchar2 [not null]
+    email varchar2 [not null]
     role_id varchar2 [not null]
 
-    Note: "UNIQUE(user_id, role_id)"
+    Note: "UNIQUE(email, role_id)"
 }

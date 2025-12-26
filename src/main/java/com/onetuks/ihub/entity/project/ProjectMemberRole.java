@@ -1,5 +1,7 @@
 package com.onetuks.ihub.entity.project;
 
 public enum ProjectMemberRole {
-  ADMIN, MEMBER, VIEWER
+  PROJECT_OWNER,
+  PROJECT_MEMBER,
+  PROJECT_VIEWER
 }
