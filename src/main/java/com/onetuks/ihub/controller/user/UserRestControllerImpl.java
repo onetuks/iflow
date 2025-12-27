@@ -1,5 +1,8 @@
 package com.onetuks.ihub.controller.user;
 
+import static com.onetuks.ihub.config.RoleDataInitializer.USER_FULL_ACCESS;
+
+import com.onetuks.ihub.annotation.RequiresRole;
 import com.onetuks.ihub.dto.user.UserCreateRequest;
 import com.onetuks.ihub.dto.user.UserResponse;
 import com.onetuks.ihub.dto.user.UserUpdateRequest;
@@ -20,15 +23,17 @@ public class UserRestControllerImpl implements UserRestController {
 
   private final UserService userService;
 
+  @RequiresRole(USER_FULL_ACCESS)
   @Override
   public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest request) {
     UserResponse response = UserMapper.toResponse(userService.create(request));
     return ResponseEntity.created(URI.create("/api/users/" + response.email())).body(response);
   }
 
+  @RequiresRole(USER_FULL_ACCESS)
   @Override
-  public ResponseEntity<UserResponse> getUser(@PathVariable String userId) {
-    return ResponseEntity.ok(UserMapper.toResponse(userService.getById(userId)));
+  public ResponseEntity<UserResponse> getUser(@PathVariable String email) {
+    return ResponseEntity.ok(UserMapper.toResponse(userService.getById(email)));
   }
 
   @Override
@@ -36,15 +41,17 @@ public class UserRestControllerImpl implements UserRestController {
     return ResponseEntity.ok(userService.getAll().stream().map(UserMapper::toResponse).toList());
   }
 
+  @RequiresRole(USER_FULL_ACCESS)
   @Override
   public ResponseEntity<UserResponse> updateUser(
-      @PathVariable String userId, @Valid @RequestBody UserUpdateRequest request) {
-    return ResponseEntity.ok(UserMapper.toResponse(userService.update(userId, request)));
+      @PathVariable String email, @Valid @RequestBody UserUpdateRequest request) {
+    return ResponseEntity.ok(UserMapper.toResponse(userService.update(email, request)));
   }
 
+  @RequiresRole(USER_FULL_ACCESS)
   @Override
-  public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
-    userService.delete(userId);
+  public ResponseEntity<Void> deleteUser(@PathVariable String email) {
+    userService.delete(email);
     return ResponseEntity.noContent().build();
   }
 }

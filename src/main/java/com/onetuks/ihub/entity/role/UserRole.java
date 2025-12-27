@@ -31,11 +31,11 @@ public class UserRole {
   @Column(name = "user_role_id", nullable = false)
   private String userRoleId;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
   private Role role;
 }

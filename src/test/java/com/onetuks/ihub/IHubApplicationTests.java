@@ -19,23 +19,6 @@ import org.springframework.context.annotation.Import;
 @SpringBootTest
 public class IHubApplicationTests {
 
-  @Autowired
-  public UserService userService;
-  @Autowired
-  public RoleService roleService;
-
-  @Autowired
-  public RoleJpaRepository roleJpaRepository;
-  @Autowired
-  public UserJpaRepository userJpaRepository;
-  @Autowired
-  public UserRoleJpaRepository userRoleJpaRepository;
-
-  public final User preparedUser = ServiceTestDataFactory.createUser(userJpaRepository);
-  public final List<Role> preparedRoles = ServiceTestDataFactory.createRoles(roleJpaRepository);
-  public final List<UserRole> preparedUserRoles = ServiceTestDataFactory.createUserRole(
-      userRoleJpaRepository, preparedUser, preparedRoles);
-
   @Test
   void contextLoads() {
   }

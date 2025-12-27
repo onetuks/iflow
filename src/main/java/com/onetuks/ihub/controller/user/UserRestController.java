@@ -38,8 +38,8 @@ public interface UserRestController {
     @ApiResponse(responseCode = "404", description = "User not found"),
     @ApiResponse(responseCode = "500", description = "Internal server error")
   })
-  @GetMapping("/{userId}")
-  ResponseEntity<UserResponse> getUser(@PathVariable String userId);
+  @GetMapping("/{email}")
+  ResponseEntity<UserResponse> getUser(@PathVariable String email);
 
   @Operation(summary = "List users")
   @ApiResponses({
@@ -56,9 +56,9 @@ public interface UserRestController {
     @ApiResponse(responseCode = "404", description = "User not found"),
     @ApiResponse(responseCode = "500", description = "Internal server error")
   })
-  @PutMapping("/{userId}")
+  @PutMapping("/{email}")
   ResponseEntity<UserResponse> updateUser(
-      @PathVariable String userId,
+      @PathVariable String email,
       @Valid @RequestBody UserUpdateRequest request);
 
   @Operation(summary = "Delete user")
@@ -68,6 +68,6 @@ public interface UserRestController {
     @ApiResponse(responseCode = "404", description = "User not found"),
     @ApiResponse(responseCode = "500", description = "Internal server error")
   })
-  @DeleteMapping("/{userId}")
-  ResponseEntity<Void> deleteUser(@PathVariable String userId);
+  @DeleteMapping("/{email}")
+  ResponseEntity<Void> deleteUser(@PathVariable String email);
 }

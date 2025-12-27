@@ -1,7 +1,5 @@
 package com.onetuks.ihub.service.user;
 
-import com.onetuks.ihub.annotation.RequiresRole;
-import com.onetuks.ihub.config.RoleDataInitializer;
 import com.onetuks.ihub.dto.user.UserCreateRequest;
 import com.onetuks.ihub.dto.user.UserUpdateRequest;
 import com.onetuks.ihub.entity.user.User;
@@ -20,17 +18,15 @@ public class UserService {
 
   private final UserJpaRepository userJpaRepository;
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public User create(User user, UserCreateRequest request) {
+  public User create(UserCreateRequest request) {
     User newUser = new User();
     UserMapper.applyCreate(newUser, request);
     return userJpaRepository.save(newUser);
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional(readOnly = true)
-  public User getById(User user, String email) {
+  public User getById(String email) {
     return findEntity(email);
   }
 
@@ -39,17 +35,15 @@ public class UserService {
     return userJpaRepository.findAll();
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public User update(User user, String email, UserUpdateRequest request) {
+  public User update(String email, UserUpdateRequest request) {
     User target = findEntity(email);
     UserMapper.applyUpdate(target, request);
     return target;
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public User delete(User user, String email) {
+  public User delete(String email) {
     User target = findEntity(email);
     target.setStatus(UserStatus.DELETED);
     return target;

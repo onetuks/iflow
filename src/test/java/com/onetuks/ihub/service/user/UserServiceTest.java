@@ -13,21 +13,29 @@ import com.onetuks.ihub.dto.user.UserUpdateRequest;
 import com.onetuks.ihub.entity.user.User;
 import com.onetuks.ihub.entity.user.UserStatus;
 import com.onetuks.ihub.mapper.UserMapper;
+import com.onetuks.ihub.repository.UserJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
-class UserServiceTest extends IHubApplicationTests {
+class UserServiceTest {
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private UserJpaRepository userJpaRepository;
 
   @Test
   void createUser_success() {
     UserCreateRequest request = createRequest("user1@example.com", "User One");
 
-    UserResponse response = UserMapper.toResponse(userService.create(preparedUser, request));
+    UserResponse response = UserMapper.toResponse(userService.create(request));
 
     assertNotNull(response.email());
     assertEquals("user1@example.com", response.email());
@@ -40,7 +48,7 @@ class UserServiceTest extends IHubApplicationTests {
   @Test
   void updateUser_success() {
     UserResponse created = UserMapper.toResponse(
-        userService.create(preparedUser, createRequest("user2@example.com", "User Two")));
+        userService.create(createRequest("user2@example.com", "User Two")));
     UserUpdateRequest updateRequest = new UserUpdateRequest(
         "newPass",
         "User Two Updated",
@@ -51,7 +59,7 @@ class UserServiceTest extends IHubApplicationTests {
         UserStatus.INACTIVE);
 
     UserResponse updated = UserMapper.toResponse(
-        userService.update(preparedUser, created.email(), updateRequest));
+        userService.update(created.email(), updateRequest));
 
     assertEquals("user2@example.com", updated.email());
     assertEquals("User Two Updated", updated.name());
@@ -64,21 +72,22 @@ class UserServiceTest extends IHubApplicationTests {
 
   @Test
   void getUsers_returnsAll() {
-    userService.create(preparedUser, createRequest("a@example.com", "A"));
-    userService.create(preparedUser, createRequest("b@example.com", "B"));
+    long expected = userJpaRepository.count() + 2;
+    userService.create(createRequest("a@example.com", "A"));
+    userService.create(createRequest("b@example.com", "B"));
 
     List<UserResponse> responses = userService.getAll().stream().map(UserMapper::toResponse)
         .toList();
 
-    assertEquals(2, responses.size());
+    assertEquals(expected, responses.size());
   }
 
   @Test
   void deleteUser_success() {
     UserResponse created = UserMapper.toResponse(userService.create(
-        preparedUser, createRequest("user3@example.com", "User Three")));
+        createRequest("user3@example.com", "User Three")));
 
-    User result = userService.delete(preparedUser, created.email());
+    User result = userService.delete(created.email());
 
     assertThat(result.getEmail()).isEqualTo(created.email());
     assertThat(result.getStatus()).isEqualTo(UserStatus.DELETED);

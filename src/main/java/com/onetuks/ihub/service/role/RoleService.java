@@ -31,9 +31,8 @@ public class RoleService {
   private final UserRoleJpaRepository userRoleRepository;
   private final UserJpaRepository userRepository;
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public List<Role> grant(User user, RoleGrantRequest request) {
+  public List<Role> grant(RoleGrantRequest request) {
     List<UserRole> originUserRoles = userRoleRepository.findAllByUserEmail(request.email());
     List<UserRole> grantedUserRoles = request.roleIds().stream()
         .map(roleRepository::findById)
@@ -54,9 +53,8 @@ public class RoleService {
     return allUsersRoles;
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public List<Role> revoke(User user, RoleRevokeRequest request) {
+  public List<Role> revoke(RoleRevokeRequest request) {
     List<UserRole> originUserRoles = userRoleRepository.findAllByUserEmail(request.email());
     request.roleIds().stream()
         .map(roleRepository::findById)
@@ -73,38 +71,34 @@ public class RoleService {
         .toList();
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public Role create(User user, RoleCreateRequest request) {
+  public Role create(RoleCreateRequest request) {
     Role role = new Role();
     RoleMapper.applyCreate(role, request);
     return roleRepository.save(role);
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional(readOnly = true)
-  public Role getById(User user, String roleId) {
+  public Role getById(String roleId) {
     return findEntity(roleId);
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional(readOnly = true)
-  public List<Role> getAll(User user) {
+  public List<Role> getAll() {
     return roleRepository.findAll();
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public Role update(User user, String roleId, RoleUpdateRequest request) {
+  public Role update(String roleId, RoleUpdateRequest request) {
     Role role = findEntity(roleId);
     RoleMapper.applyUpdate(role, request);
     return role;
   }
 
-  @RequiresRole(RoleDataInitializer.USER_FULL_ACCESS)
   @Transactional
-  public void delete(User user, String roleId) {
+  public void delete(String roleId) {
     Role role = findEntity(roleId);
+    userRoleRepository.deleteAllByRole(role);
     roleRepository.delete(role);
   }
 

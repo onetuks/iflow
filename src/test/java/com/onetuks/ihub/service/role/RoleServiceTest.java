@@ -15,17 +15,28 @@ import com.onetuks.ihub.dto.role.RoleUpdateRequest;
 import com.onetuks.ihub.entity.role.Role;
 import com.onetuks.ihub.entity.user.User;
 import com.onetuks.ihub.mapper.RoleMapper;
+import com.onetuks.ihub.repository.RoleJpaRepository;
+import com.onetuks.ihub.repository.UserJpaRepository;
 import com.onetuks.ihub.service.ServiceTestDataFactory;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
-class RoleServiceTest extends IHubApplicationTests {
+class RoleServiceTest {
+
+  @Autowired
+  private RoleService roleService;
+
+  @Autowired
+  private RoleJpaRepository roleJpaRepository;
+  @Autowired
+  private UserJpaRepository userJpaRepository;
 
   private User user;
   private List<Role> roles;
@@ -40,7 +51,7 @@ class RoleServiceTest extends IHubApplicationTests {
   void createRole_success() {
     RoleCreateRequest request = new RoleCreateRequest("Admin", "Administrator role");
 
-    RoleResponse response = RoleMapper.toResponse(roleService.create(preparedUser, request));
+    RoleResponse response = RoleMapper.toResponse(roleService.create(request));
 
     assertNotNull(response.roleId());
     assertEquals("Admin", response.roleName());
@@ -50,11 +61,11 @@ class RoleServiceTest extends IHubApplicationTests {
   @Test
   void updateRole_success() {
     RoleResponse created = RoleMapper.toResponse(roleService.create(
-        preparedUser, new RoleCreateRequest("Member", "Member role")));
+        new RoleCreateRequest("Member", "Member role")));
     RoleUpdateRequest updateRequest = new RoleUpdateRequest("Member Updated", "Updated desc");
 
     RoleResponse updated = RoleMapper.toResponse(
-        roleService.update(preparedUser, created.roleId(), updateRequest));
+        roleService.update(created.roleId(), updateRequest));
 
     assertEquals("Member Updated", updated.roleName());
     assertEquals("Updated desc", updated.description());
@@ -63,10 +74,10 @@ class RoleServiceTest extends IHubApplicationTests {
   @Test
   void getRoles_returnsAll() {
     long expected = roleJpaRepository.count() + 2;
-    roleService.create(preparedUser, new RoleCreateRequest("R1", "Role one"));
-    roleService.create(preparedUser, new RoleCreateRequest("R2", "Role two"));
+    roleService.create(new RoleCreateRequest("R1", "Role one"));
+    roleService.create(new RoleCreateRequest("R2", "Role two"));
 
-    List<RoleResponse> responses = roleService.getAll(preparedUser).stream()
+    List<RoleResponse> responses = roleService.getAll().stream()
         .map(RoleMapper::toResponse)
         .toList();
 
@@ -77,12 +88,12 @@ class RoleServiceTest extends IHubApplicationTests {
   void deleteRole_success() {
     // Given
     long expected = roleJpaRepository.count();
-    Role role = roleService.create(preparedUser, new RoleCreateRequest("Temp", "Temp role"));
+    Role role = roleService.create(new RoleCreateRequest("Temp", "Temp role"));
 
-    roleService.delete(preparedUser, role.getRoleId());
+    roleService.delete(role.getRoleId());
 
     assertEquals(expected, roleJpaRepository.count());
-    assertThrows(EntityNotFoundException.class, () -> roleService.getById(preparedUser, role.getRoleId()));
+    assertThrows(EntityNotFoundException.class, () -> roleService.getById(role.getRoleId()));
   }
 
   @Test
@@ -91,7 +102,7 @@ class RoleServiceTest extends IHubApplicationTests {
     RoleGrantRequest request = createRoleGrantRequest();
 
     // When
-    List<Role> results = roleService.grant(preparedUser, request);
+    List<Role> results = roleService.grant(request);
 
     // Then
     assertThat(results).hasSize(request.roleIds().size());
@@ -100,11 +111,11 @@ class RoleServiceTest extends IHubApplicationTests {
   @Test
   void revokeRole_success() {
     // Given
-    roleService.grant(preparedUser, createRoleGrantRequest());
+    roleService.grant(createRoleGrantRequest());
     RoleRevokeRequest request = createRoleRevokeRequest();
 
     // When
-    List<Role> results = roleService.revoke(preparedUser, request);
+    List<Role> results = roleService.revoke(request);
 
     // Then
     assertThat(results).hasSize(0);
