@@ -9,6 +9,7 @@ import com.onetuks.ihub.repository.UserJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
   private final UserJpaRepository userJpaRepository;
+  private final PasswordEncoder passwordEncoder;
 
   @Transactional
   public User create(UserCreateRequest request) {
     User newUser = new User();
     UserMapper.applyCreate(newUser, request);
+    newUser.setPassword(passwordEncoder.encode(request.password()));
     return userJpaRepository.save(newUser);
   }
 
@@ -38,6 +41,9 @@ public class UserService {
   @Transactional
   public User update(String email, UserUpdateRequest request) {
     User target = findEntity(email);
+    if (request.password() != null) {
+      target.setPassword(passwordEncoder.encode(request.password()));
+    }
     UserMapper.applyUpdate(target, request);
     return target;
   }

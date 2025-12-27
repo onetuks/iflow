@@ -8,6 +8,10 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -59,6 +63,37 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<ApiError> handleAccessDenied(
       AccessDeniedException ex, WebRequest request) {
+    return buildResponse(
+        HttpStatus.FORBIDDEN,
+        "ACCESS_DENIED",
+        ex.getMessage(),
+        Collections.emptyList(),
+        request);
+  }
+
+  @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+  public ResponseEntity<ApiError> handleSpringAccessDenied(
+      org.springframework.security.access.AccessDeniedException ex, WebRequest request) {
+    return buildResponse(
+        HttpStatus.FORBIDDEN,
+        "ACCESS_DENIED",
+        ex.getMessage(),
+        Collections.emptyList(),
+        request);
+  }
+
+  @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class})
+  public ResponseEntity<ApiError> handleAuthenticationFailures(Exception ex, WebRequest request) {
+    return buildResponse(
+        HttpStatus.UNAUTHORIZED,
+        "UNAUTHORIZED",
+        "Invalid username or password",
+        Collections.emptyList(),
+        request);
+  }
+
+  @ExceptionHandler({LockedException.class, DisabledException.class})
+  public ResponseEntity<ApiError> handleAccountState(RuntimeException ex, WebRequest request) {
     return buildResponse(
         HttpStatus.FORBIDDEN,
         "ACCESS_DENIED",

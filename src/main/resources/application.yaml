@@ -15,6 +15,11 @@ spring:
             ddl-auto: update # none in prod
         database-platform: org.hibernate.dialect.MySQLDialect
 
+security:
+    jwt:
+        secret: ${JWT_SECRET:testtest}
+        expiration-ms: 86400000
+
 springdoc:
     swagger-ui:
         path: /api/docs

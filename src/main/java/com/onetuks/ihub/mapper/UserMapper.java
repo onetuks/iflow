@@ -27,7 +27,6 @@ public final class UserMapper {
   public static void applyCreate(User user, UserCreateRequest request) {
     LocalDateTime now = LocalDateTime.now();
     user.setEmail(request.email());
-    user.setPassword(request.password());
     user.setName(request.name());
     user.setCompany(request.company());
     user.setPosition(request.position());
@@ -39,9 +38,6 @@ public final class UserMapper {
   }
 
   public static void applyUpdate(User user, UserUpdateRequest request) {
-    if (request.password() != null) {
-      user.setPassword(request.password());
-    }
     if (request.name() != null) {
       user.setName(request.name());
     }
